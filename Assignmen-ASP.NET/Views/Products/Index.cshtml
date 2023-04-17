@@ -1,0 +1,8 @@
+﻿@model ProductsIndexViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div style="padding-top: 150px;">
+    <partial name="/Views/Partials/_GridCollection.cshtml" model="@Model.All" />
+</div>

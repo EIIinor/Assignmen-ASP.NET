@@ -1,0 +1,19 @@
+﻿@model MediaCardsCollectionViewModel
+
+@if (Model != null)
+{
+    <section class="social-cards">
+        <div class="container">
+            <div class="cards">
+
+                @foreach (var item in Model.MediaCards)
+                {
+                    <partial name="/Views/Partials/_MediaCardItem.cshtml" model="item" />
+                }
+
+
+            </div>
+        </div>
+    </section>
+}
+

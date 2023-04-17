@@ -1,0 +1,8 @@
+﻿@model ContactsIndexViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+<div style="padding-top: 150px;">
+    <partial name="/Views/Partials/_Breadcrumb.cshtml" model="@Model.Breadcrumb" />
+    <partial name="/Views/Partials/_Map.cshtml" model="@Model.Map" />
+</div>

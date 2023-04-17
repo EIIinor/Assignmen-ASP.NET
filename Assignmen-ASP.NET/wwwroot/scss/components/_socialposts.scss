@@ -1,0 +1,44 @@
+﻿.social-cards {
+    padding: 60px 0px;
+
+    .container {
+        padding-top: 80px;
+        display: block;
+        text-align: center;
+    }
+
+    .cards {
+        display: none;
+        padding-top: 40px;
+
+        @include lg {
+            display: flex;
+        }
+
+        .col {
+            padding-right: 20px;
+
+            .card {
+                border-radius: 0;
+                border: none;
+
+                .card-body {
+                    text-align: left;
+
+                    h1 {
+                        font-size: 18px;
+                        color: $color-dark-1;
+                    }
+
+                    .ingress {
+                        color: $color-dark-2;
+                    }
+
+                    p {
+                        color: $color-dark-4;
+                    }
+                }
+            }
+        }
+    }
+}

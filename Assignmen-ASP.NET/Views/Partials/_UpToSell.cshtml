@@ -1,0 +1,39 @@
+﻿@model UpToSellViewModel
+
+
+<section class="up-to-sell">
+    <div class="container">
+        <div class="collection-grid">
+            <div class="item-1">
+
+                @foreach (var item in Model.GridItems)
+                {
+                    <partial name="/Views/Partials/_GridItem.cshtml" model="item" />
+                }
+
+            </div>
+            <div class="discover">
+
+                <div class="collection-content">
+                    <div class="container">
+                        <div class="title-red">@Model.TitleRed</div>
+                        <div class="title">@Model.Title</div>
+                        <div class="ingress">@Model.Ingress</div>
+                        <div class="text">@Model.Text</div>
+                        <a href="@Model.LinkUrl" class="link">@Model.LinkContent</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="item-2">
+
+                @foreach (var item in Model.GridItems)
+                {
+                    <partial name="/Views/Partials/_GridItem.cshtml" model="item" />
+                }
+
+            </div>
+        </div>
+    </div>
+</section>
