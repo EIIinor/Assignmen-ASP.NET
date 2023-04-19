@@ -13,7 +13,7 @@
 
             <div class="mb-3">
                 <label asp-for="Email" class="form-label"></label>
-                <a asp-controller="registerUsers" asp-action="index" class="text-danger">Don't have an Account yet?</a>
+                <a asp-controller="account" asp-action="register" class="text-danger">Don't have an Account yet?</a>
                 <input asp-for="Email" class="form-control" />
                 <small><span asp-validation-for="Email" class="text-danger"></span></small>
             </div>

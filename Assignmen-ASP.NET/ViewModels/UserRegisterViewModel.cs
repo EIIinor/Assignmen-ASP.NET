@@ -1,18 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Assignmen_ASP.NET.Models.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace Assignmen_ASP.NET.ViewModels
 {
     public class UserRegisterViewModel
     {
-        [Required(ErrorMessage = "First name is required")]
-        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "Firstname is required")]
+        [Display(Name = "FirstName")]
         [RegularExpression(@"^[a-öA-Ö]+(?:[é'-][a-öA-Ö]+)*$", ErrorMessage = "Du måste ange ett giltigt förnamn")]
         public string FirstName { get; set; } = null!;
 
 
-        [Required(ErrorMessage = "First name is required")]
-        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Firstname is required")]
+        [Display(Name = "LastName")]
         [RegularExpression(@"^[a-öA-Ö]+(?:[é'-][a-öA-Ö]+)*$", ErrorMessage = "Du måste ange ett giltigt efternamn")]
         public string LastName { get; set; } = null!;
 
@@ -51,15 +52,23 @@ namespace Assignmen_ASP.NET.ViewModels
         public string? City { get; set; }
 
 
-        //public static implicit operator CustomIdentityUser(RegisterUsersViewModel viewModel)
-        //{
-        //    return new CustomIdentityUser
-        //    {
-        //        UserName = viewModel.Email,
-        //        Firstname = viewModel.FirstName,
-        //        Lastname = viewModel.LastName,
-        //        Email = viewModel.Email,
-        //    };
-        //}
+        public static implicit operator UserEntity(UserRegisterViewModel userRegisterviewModel)
+        {
+            var userEntity = new UserEntity { Email = userRegisterviewModel.Email };
+            userEntity.GenerateSecurePassword(userRegisterviewModel.Password);
+            return userEntity;
+        }
+
+        public static implicit operator ProfileEntity(UserRegisterViewModel userRegisterviewModel)
+        {
+            return new ProfileEntity
+            {
+                FirstName = userRegisterviewModel.FirstName,
+                LastName = userRegisterviewModel.LastName,
+                StreetName = userRegisterviewModel.StreetName,
+                PostalCode = userRegisterviewModel.PostalCode,
+                City = userRegisterviewModel.City,
+            };
+        }
     }
 }
