@@ -1,13 +1,13 @@
-﻿@model LoginViewModel
+﻿@model UserLoginViewModel
 @{
-    ViewData["Title"] = "Logga in";
+    ViewData["Title"] = "Login";
 }
 
 
 <div class="d-flex justify-content-center" style="padding-top:200px">
     <div class="col-6">
 
-        <form asp-action="Register" method="post" novalidate>
+        <form method="post" novalidate>
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -25,7 +25,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-success mt-2">LOGGA IN</button>
+            <button type="submit" class="btn btn-success mt-2">LOGIN</button>
 
         </form>
 

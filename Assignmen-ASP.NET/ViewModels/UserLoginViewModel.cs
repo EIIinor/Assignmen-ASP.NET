@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace Assignmen_ASP.NET.ViewModels
 {
-    public class LoginViewModel
+    public class UserLoginViewModel
     {
-        [Required(ErrorMessage = "Du måste ange en e-postadress")]
+        [Required(ErrorMessage = "Email is required")]
         [Display(Name = "E-postadress")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; } = null!;
 
-        [Required(ErrorMessage = "Du måste ange ett lösenord")]
+        [Required(ErrorMessage = "Password is required")]
         [Display(Name = "Lösenord")]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
+
+        public bool RememberMe { get; set; }
     }
 }
