@@ -3,6 +3,12 @@
 
         @if(signInManager.IsSignedIn(User))
         {
+            @if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+            {
+                <a asp-action="Index" asp-controller="Admin">Admin</a>
+            }
+  
+            <a asp-action="MyAccount" asp-controller="Account">@User.Identity?.Name</a>
             <a asp-action="LogOut" asp-controller="Account">LOGOUT</a>
         }
         else

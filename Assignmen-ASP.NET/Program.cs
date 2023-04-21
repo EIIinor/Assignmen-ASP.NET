@@ -14,7 +14,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
 builder.Services.AddScoped<AuthService>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(x => 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(x => 
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.Password.RequiredLength = 8;

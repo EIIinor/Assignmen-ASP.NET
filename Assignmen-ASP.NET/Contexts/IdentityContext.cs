@@ -11,5 +11,12 @@ namespace Assignmen_ASP.NET.Contexts
         }
 
         public DbSet<UserProfileEntity> UserProfiles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+
+        }
     }
 }

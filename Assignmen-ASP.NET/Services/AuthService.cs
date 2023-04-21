@@ -2,6 +2,7 @@
 using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Assignmen_ASP.NET.Services;
@@ -11,13 +12,17 @@ public class AuthService
 
     private readonly UserManager<IdentityUser> _userManager;
     private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IdentityContext _identityContext;
+    private readonly SeedService _seedService;
 
-    public AuthService(UserManager<IdentityUser> userManager, IdentityContext identityContext, SignInManager<IdentityUser> signInManager)
+    public AuthService(UserManager<IdentityUser> userManager, IdentityContext identityContext, SignInManager<IdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _identityContext = identityContext;
         _signInManager = signInManager;
+        _seedService = seedService;
+        _roleManager = roleManager;
     }
 
 
@@ -26,9 +31,16 @@ public class AuthService
     {
         try
         {
-            IdentityUser identityUser = model;
+            await _seedService.SeedRoles();
+            var roleName = "user";
 
+            if (!await _userManager.Users.AnyAsync())
+                roleName = "admin";
+
+            IdentityUser identityUser = model;
             await _userManager.CreateAsync(identityUser, model.Password);
+
+            await _userManager.AddToRoleAsync(identityUser, roleName);
 
             UserProfileEntity userProfileEntity = model;
             userProfileEntity.UserId = identityUser.Id;
