@@ -1,5 +1,6 @@
 ﻿using Assignmen_ASP.NET.Contexts;
 using Assignmen_ASP.NET.Models.Entities;
+using Assignmen_ASP.NET.Models.Identity;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,66 +10,96 @@ namespace Assignmen_ASP.NET.Services;
 
 public class AuthService
 {
+    private readonly UserManager<AppUser> _userManager;
+    private readonly AddressService _addressService;
+    private readonly SignInManager<AppUser> _signInManager;
 
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly IdentityContext _identityContext;
-    private readonly SeedService _seedService;
+    //private readonly UserManager<IdentityUser> _userManager;
+    //private readonly SignInManager<IdentityUser> _signInManager;
+    //private readonly RoleManager<IdentityRole> _roleManager;
+    //private readonly IdentityContext _identityContext;
+    //private readonly SeedService _seedService;
 
-    public AuthService(UserManager<IdentityUser> userManager, IdentityContext identityContext, SignInManager<IdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager)
+    //public AuthService(UserManager<IdentityUser> userManager, IdentityContext identityContext, SignInManager<IdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager)
+    //{
+    //    _userManager = userManager;
+    //    _identityContext = identityContext;
+    //    _signInManager = signInManager;
+    //    _seedService = seedService;
+    //    _roleManager = roleManager;
+    //}
+
+    public AuthService(UserManager<AppUser> userManager, AddressService addressService, SignInManager<AppUser> signInManager)
     {
         _userManager = userManager;
-        _identityContext = identityContext;
+        _addressService = addressService;
         _signInManager = signInManager;
-        _seedService = seedService;
-        _roleManager = roleManager;
     }
 
-
-
-    public async Task<bool> RegisterAsync(UserRegisterViewModel model)
+    public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
     {
-        try
+        AppUser appUser = model;
+
+        var result =await _userManager.CreateAsync(appUser, model.Password);
+        if (result.Succeeded)
         {
-            await _seedService.SeedRoles();
-            var roleName = "user";
-
-            if (!await _userManager.Users.AnyAsync())
-                roleName = "admin";
-
-            IdentityUser identityUser = model;
-            await _userManager.CreateAsync(identityUser, model.Password);
-
-            await _userManager.AddToRoleAsync(identityUser, roleName);
-
-            UserProfileEntity userProfileEntity = model;
-            userProfileEntity.UserId = identityUser.Id;
-
-            _identityContext.UserProfiles.Add(userProfileEntity);
-            await _identityContext.SaveChangesAsync();
-
-            return true;
+            var addressEntity = await _addressService.GetOrCreateAsync(model);
+            if (addressEntity != null)
+            {
+                await _addressService.AddAddressAsync(appUser, addressEntity);
+                return true;
+            }
         }
-        catch { return false; }
+        return false;
+
+        //try
+        //{
+        //    await _seedService.SeedRoles();
+        //    var roleName = "user";
+
+        //    if (!await _userManager.Users.AnyAsync())
+        //        roleName = "admin";
+
+        //    IdentityUser identityUser = model;
+        //    await _userManager.CreateAsync(identityUser, model.Password);
+
+        //    await _userManager.AddToRoleAsync(identityUser, roleName);
+
+        //    UserProfileEntity userProfileEntity = model;
+        //    userProfileEntity.UserId = identityUser.Id;
+
+        //    _identityContext.UserProfiles.Add(userProfileEntity);
+        //    await _identityContext.SaveChangesAsync();
+
+        //    return true;
+        //}
+        //catch { return false; }
     }
 
 
 
-    public async Task<bool> LoginAsync(UserLoginViewModel model)
+    public async Task<bool> LoginUserAsync(UserLoginViewModel model)
     {
-        try
+        var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == model.Email);
+        if (appUser != null)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+            var result = await _signInManager.PasswordSignInAsync(appUser, model.Password, model.RememberMe, false);
             return result.Succeeded;
         }
-        catch { return false; }
+        return false;
+
+        //try
+        //{
+        //    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+        //    return result.Succeeded;
+        //}
+        //catch { return false; }
     }
 
 
-    public async Task<bool> LogOutAsync(ClaimsPrincipal user)
+    public async Task<bool> LogOutUserAsync(ClaimsPrincipal user)
     {
-       await _signInManager.SignOutAsync();
+        await _signInManager.SignOutAsync();
         return _signInManager.IsSignedIn(user);
 
     }

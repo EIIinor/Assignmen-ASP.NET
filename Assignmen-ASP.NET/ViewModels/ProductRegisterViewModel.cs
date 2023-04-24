@@ -21,14 +21,14 @@ public class ProductRegisterViewModel
     public string? ImageUrl { get; set; }
 
 
-    public static implicit operator ProductEntity(ProductRegisterViewModel productRegisterViewModel)
-    {
-        return new ProductEntity
-        {
-            Name = productRegisterViewModel.Name,
-            Description = productRegisterViewModel.Description,
-            Price = productRegisterViewModel.Price,
-            ImageUrl = productRegisterViewModel.ImageUrl,
-        };
-    }
+    //public static implicit operator ProductEntity(ProductRegisterViewModel productRegisterViewModel)
+    //{
+    //    return new ProductEntity
+    //    {
+    //        Name = productRegisterViewModel.Name,
+    //        Description = productRegisterViewModel.Description,
+    //        Price = productRegisterViewModel.Price,
+    //        ImageUrl = productRegisterViewModel.ImageUrl,
+    //    };
+    //}
 }

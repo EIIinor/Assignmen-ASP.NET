@@ -1,9 +1,12 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using Assignmen_ASP.NET.Models;
+@using Assignmen_ASP.NET.Models.Identity;
 @using Assignmen_ASP.NET.ViewModels;
 @using Assignmen_ASP.NET.Services;
 @inject ProductService productService
 @using Microsoft.AspNetCore.Identity;
-@inject SignInManager<IdentityUser> signInManager
-@inject UserManager<IdentityUser> userManager
+
+
+@inject SignInManager<AppUser> signInManager
+@inject UserManager<AppUser> userManager
 

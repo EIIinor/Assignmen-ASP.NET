@@ -4,28 +4,36 @@
 }
 
 
-<div class="d-flex justify-content-center" style="padding-top:200px">
-    <div class="col-6">
+<div class="login-form" style="padding-top:200px">
+    <div class="container">
+        <div class="title">@ViewData["Title"]</div>
 
         <form method="post" novalidate>
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="error"></div>
 
-            <div class="mb-3">
+            <div class="email form-group">
                 <label asp-for="Email" class="form-label"></label>
                 <a asp-controller="account" asp-action="register" class="text-danger">Don't have an Account yet?</a>
                 <input asp-for="Email" class="form-control" />
-                <small><span asp-validation-for="Email" class="text-danger"></span></small>
+                <small><span asp-validation-for="Email" class="error"></span></small>
             </div>
 
-            <div class="mb-3">
+            <div class="password form-group">
                 <label asp-for="Password" class="form-label"></label>
                 <input asp-for="Password" class="form-control" />
-                <small><span asp-validation-for="Password" class="text-danger"></span></small>
+                <small><span asp-validation-for="Password" class="error"></span></small>
             </div>
 
+            <div class="rememberme form-checkbox-group">
+                <label class="custom-checkbox">
+                    <label asp-for="RememberMe"></label>
+                    <input asp-for="RememberMe" />
+                    <span  class="checkmark"></span>
+                </label>
+            </div>
 
-            <button type="submit" class="btn btn-success mt-2">LOGIN</button>
+            <button type="submit" class="btn-theme">LOGIN</button>
 
         </form>
 

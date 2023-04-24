@@ -9,14 +9,11 @@ namespace Assignmen_ASP.NET.Controllers;
 public class AccountController : Controller
 {
 
-
-
-    private readonly UserService _userService;
+    //private readonly UserService _userService;
     private readonly AuthService _authService;
 
-    public AccountController(UserService userService, AuthService authService)
+    public AccountController(AuthService authService)
     {
-        _userService = userService;
         _authService = authService;
     }
 
@@ -38,7 +35,7 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (await _authService.RegisterAsync(userRegisterViewModel))
+            if (await _authService.RegisterUserAsync(userRegisterViewModel))
                 return RedirectToAction("Login");
 
             ModelState.AddModelError("", "A user with the same email already exists");
@@ -76,21 +73,12 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            if (await _authService.LoginAsync(userLoginViewModel))
+            if (await _authService.LoginUserAsync(userLoginViewModel))
                 return RedirectToAction("MyAccount");
 
             ModelState.AddModelError("", "wrong email or password");
         }
         return View(userLoginViewModel);
-
-
-        //if (ModelState.IsValid)
-        //{
-        //    if (await _userService.LoginAsync(userLoginViewModel))
-        //        return RedirectToAction("Index", "Home");
-        //    ModelState.AddModelError("", "Wrong email or password");
-        //}
-        //return View(userLoginViewModel);
     }
 
 
@@ -99,12 +87,12 @@ public class AccountController : Controller
     [Authorize]
     public async Task<IActionResult> Logout()
     {
-        if (await _authService.LogOutAsync(User))
+        if (await _authService.LogOutUserAsync(User))
             return LocalRedirect("/");
 
         return RedirectToAction("Index", "Home");
-        
     }
+
 
 
 }

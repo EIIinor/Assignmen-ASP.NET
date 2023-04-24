@@ -2,14 +2,14 @@
 @{
     ViewData["Title"] = Model.Title;
 
-    var products = await productService.GetAllASync();
+    //var products = await productService.GetAllASync();
 }
 
 <div class="mb-5">
     <a class="link" asp-controller="products" asp-action="register">Register new product</a>
 </div>
 
-@if (products != null)
+@*@if (products != null)
 {
     foreach (var product in products)
     {
@@ -26,7 +26,7 @@
 
     }
 }
-
+*@
 
 <div style="padding-top: 150px;">
     <partial name="/Views/Partials/_GridCollection.cshtml" model="@Model.All" />

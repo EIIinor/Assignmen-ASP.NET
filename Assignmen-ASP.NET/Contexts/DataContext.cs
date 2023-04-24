@@ -9,8 +9,8 @@ public class DataContext : DbContext
     {
     }
 
-    public DbSet<UserEntity> Users { get; set; }
-    public DbSet<ProfileEntity> Profiles { get; set; }
-    public DbSet<ProductEntity> Products { get; set; }
+    //public DbSet<UserEntity> Users { get; set; }
+    //public DbSet<ProfileEntity> Profiles { get; set; }
+    //public DbSet<ProductEntity> Products { get; set; }
 }
 

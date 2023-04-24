@@ -9,26 +9,27 @@ namespace Assignmen_ASP.NET.Services;
 public class UserService
 {
 
-    private readonly DataContext _context;
+    //private readonly DataContext _context;
 
-    public UserService(DataContext context)
-    {
-        _context = context;
-    }
+    //public UserService(DataContext context)
+    //{
+    //    _context = context;
+    //}
 
-    public async Task<bool> UserExist(Expression<Func<UserEntity, bool>> predicate)
-    {
-        if (await _context.Users.AnyAsync(predicate))
-            return true;
+    //public async Task<bool> UserExist(Expression<Func<UserEntity, bool>> predicate)
+    //{
+    //    //if (await _context.Users.AnyAsync(predicate))
+    //    //    return true;
 
-        return false;
-    }
+    //    return false;
+    //}
 
-    public async Task<UserEntity> GetAsync(Expression<Func<UserEntity, bool>> predicate)
-    {
-        var userEntity = await _context.Users.FirstOrDefaultAsync(predicate);
-        return userEntity!;
-    }
+    //public async Task<UserEntity> GetAsync(Expression<Func<UserEntity, bool>> predicate)
+    //{
+    //    //var userEntity = await _context.Users.FirstOrDefaultAsync(predicate);
+    //    //return userEntity!;
+
+    //}
 
     //public async Task<bool> RegisterAsync(UserRegisterViewModel userRegisterViewModel)
     //{
@@ -53,11 +54,11 @@ public class UserService
     //    }
     //}
 
-    public async Task<bool> LoginAsync(UserLoginViewModel userLoginViewModel)
-    {
-        var userEntity = await GetAsync(x => x.Email == userLoginViewModel.Email);
-        if (userEntity != null)
-            return userEntity.VerifySecurePassword(userLoginViewModel.Password);
-        return false;
-    }
+    //public async Task<bool> LoginAsync(UserLoginViewModel userLoginViewModel)
+    //{
+    //    var userEntity = await GetAsync(x => x.Email == userLoginViewModel.Email);
+    //    if (userEntity != null)
+    //        return userEntity.VerifySecurePassword(userLoginViewModel.Password);
+    //    return false;
+    //}
 }
