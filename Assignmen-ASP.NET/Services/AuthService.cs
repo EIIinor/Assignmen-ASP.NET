@@ -13,6 +13,7 @@ public class AuthService
     private readonly UserManager<AppUser> _userManager;
     private readonly AddressService _addressService;
     private readonly SignInManager<AppUser> _signInManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
     //private readonly UserManager<IdentityUser> _userManager;
     //private readonly SignInManager<IdentityUser> _signInManager;
@@ -29,20 +30,33 @@ public class AuthService
     //    _roleManager = roleManager;
     //}
 
-    public AuthService(UserManager<AppUser> userManager, AddressService addressService, SignInManager<AppUser> signInManager)
+    public AuthService(UserManager<AppUser> userManager, AddressService addressService, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _addressService = addressService;
         _signInManager = signInManager;
+        _roleManager = roleManager;
     }
 
     public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
     {
         AppUser appUser = model;
+        var roleName = "User";
+
+        if (!await _roleManager.Roles.AnyAsync())
+        {
+            await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            await _roleManager.CreateAsync(new IdentityRole("User"));
+        }
+
+        if (!await _userManager.Users.AnyAsync())
+            roleName = "Admin";
 
         var result =await _userManager.CreateAsync(appUser, model.Password);
         if (result.Succeeded)
         {
+            await _userManager.AddToRoleAsync(appUser, roleName);
+
             var addressEntity = await _addressService.GetOrCreateAsync(model);
             if (addressEntity != null)
             {

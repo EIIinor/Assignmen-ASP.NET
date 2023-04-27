@@ -27,7 +27,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
 }).AddEntityFrameworkStores<IdentityContext>();
 
 
-
+builder.Services.AddScoped<ContactFormService>();
 //builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ProductService>();
 //builder.Services.AddScoped<AuthService>();

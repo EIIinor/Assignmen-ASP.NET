@@ -1,0 +1,52 @@
+﻿@model ContactFormViewModel
+
+<div class="contact-form" style="padding-top:200px">
+    <div class="container">
+        <div class="title">@ViewData["Title"]</div>
+
+        <form method="post" novalidate>
+
+            <div asp-validation-summary="ModelOnly" class="error"></div>
+
+            <div class="name form-group">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <small><span asp-validation-for="Name" class="error"></span></small>
+            </div>
+
+            <div class="email form-group">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <small><span asp-validation-for="Email" class="error"></span></small>
+            </div>
+
+            <div class="phone form-group">
+                <label asp-for="PhoneNumber" class="form-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+            </div>
+
+            <div class="company form-group">
+                <label asp-for="Company" class="form-label"></label>
+                <input asp-for="Company" class="form-control" />
+            </div>
+
+            <div class="text form-group">
+                <label asp-for="Text" class="form-label"></label>
+                <input asp-for="Text" class="form-control" />
+                <small><span asp-validation-for="Text" class="error"></span></small>
+            </div>
+
+            <div class="saveMe form-checkbox-group">
+                <label class="custom-checkbox">
+                    <label asp-for="SaveMe"></label>
+                    <input asp-for="SaveMe" />
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-theme">Submit</button>
+
+        </form>
+
+    </div>
+</div>
