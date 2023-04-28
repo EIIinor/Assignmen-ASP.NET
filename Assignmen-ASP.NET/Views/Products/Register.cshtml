@@ -33,7 +33,18 @@
                 <textarea asp-for="Description" class="form-control" rows="3"></textarea>
                 <small><span asp-validation-for="Description" class="text-danger"></span></small>
             </div>
-     
+
+
+
+            <div class="mb-3">
+                <label asp-for="SelectedCategoryIds" class="form-label"></label>
+                <select asp-for="SelectedCategoryIds" asp-items="Model.CategorySelectListItems" multiple class="form-control"></select>
+                <span asp-validation-for="SelectedCategoryIds" class="text-danger"></span>
+            </div>
+
+
+
+
 
             <div class="grid mt-2">
                 <button type="submit" class="btn btn-success">CREATE</button>

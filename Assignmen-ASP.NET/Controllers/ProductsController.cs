@@ -1,6 +1,8 @@
-﻿using Assignmen_ASP.NET.Services;
+﻿using Assignmen_ASP.NET.Contexts;
+using Assignmen_ASP.NET.Services;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignmen_ASP.NET.Controllers;
 
@@ -8,10 +10,12 @@ public class ProductsController : Controller
 {
 
     private readonly ProductService _productService;
+    private readonly DataContext _dataContext;
 
-    public ProductsController(ProductService productService)
+    public ProductsController(ProductService productService, DataContext dataContext)
     {
         _productService = productService;
+        _dataContext = dataContext;
     }
 
 
@@ -35,12 +39,15 @@ public class ProductsController : Controller
 
     public IActionResult Register()
     {
-        return View();
+        var viewModel = new ProductRegisterViewModel(_dataContext.Categories);
+        return View(viewModel);
     }
 
     [HttpPost]
     public async Task<IActionResult> Register(ProductRegisterViewModel productRegisterViewModel)
     {
+
+
         if (ModelState.IsValid)
         {
             if (await _productService.CreateAsync(productRegisterViewModel))
@@ -49,7 +56,7 @@ public class ProductsController : Controller
             ModelState.AddModelError("", "Something went wrong");
         }
 
-        return View();
+        return View(productRegisterViewModel);
     }
 
 

@@ -16,6 +16,10 @@ public class ProductEntity
 
 
 
+    public ICollection<ProductCategoryEntity> ProductCategories { get; set; } = new List<ProductCategoryEntity>();
+
+
+
     public static implicit operator ProductModel(ProductEntity entity)
     {
         return new ProductModel

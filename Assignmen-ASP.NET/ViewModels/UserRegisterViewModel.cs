@@ -11,30 +11,30 @@ namespace Assignmen_ASP.NET.ViewModels
 
 
         [Required(ErrorMessage = "Firstname is required")]
-        [Display(Name = "First Name")]
+        [Display(Name = "First Name*")]
         [RegularExpression(@"^[a-öA-Ö]+(?:[é'-][a-öA-Ö]+)*$", ErrorMessage = "You must entar e valid firstname")]
         public string FirstName { get; set; } = null!;
 
 
 
         [Required(ErrorMessage = "Lastname is required")]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Last Name*")]
         [RegularExpression(@"^[a-öA-Ö]+(?:[é'-][a-öA-Ö]+)*$", ErrorMessage = "You must entar e valid lastname")]
         public string LastName { get; set; } = null!;
 
 
-        [Required(ErrorMessage = "Streetname is required")]
+        [Required(ErrorMessage = "Streetname is required*")]
         [Display(Name = "Streetname")]
         public string StreetName { get; set; } = null!;
 
 
         [Required(ErrorMessage = "Postalcode is required")]
-        [Display(Name = "Postal Code")]
+        [Display(Name = "Postal Code*")]
         public string PostalCode { get; set; } = null!;
 
 
         [Required(ErrorMessage = "City is required")]
-        [Display(Name = "City")]
+        [Display(Name = "City*")]
         public string City { get; set; } = null!;
 
 
@@ -47,7 +47,7 @@ namespace Assignmen_ASP.NET.ViewModels
 
 
         [Required(ErrorMessage = "E-mail is required")]
-        [Display(Name = "E-mail")]
+        [Display(Name = "E-mail*")]
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+(?:\.[-A-Za-z0-9!#$%&'*+/=?^_`{|}~]+)*@(?:[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[-A-Za-z0-9]*[A-Za-z0-9])?", ErrorMessage = "Enter valid email")]
         public string Email { get; set; } = null!;
@@ -55,7 +55,7 @@ namespace Assignmen_ASP.NET.ViewModels
      
 
         [Required(ErrorMessage = "Password is required")]
-        [Display(Name = "Password")]
+        [Display(Name = "Password*")]
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$", ErrorMessage = "Enter valid password")]
         public string Password { get; set; } = null!;
@@ -65,7 +65,7 @@ namespace Assignmen_ASP.NET.ViewModels
         [Required(ErrorMessage = "Confirming password is required")]
         [Compare(nameof(Password), ErrorMessage = "Password is not matching")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirm password*")]
         public string ConfirmPassword { get; set; } = null!;
 
 
