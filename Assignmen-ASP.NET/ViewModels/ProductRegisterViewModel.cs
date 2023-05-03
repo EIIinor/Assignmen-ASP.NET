@@ -15,16 +15,19 @@ public class ProductRegisterViewModel
     [Display(Name = "Product name *")]
     public string Name { get; set; } = null!;
 
+
     [Display(Name = "Product description (optional)")]
     public string? Description { get; set; }
 
-    [Required(ErrorMessage = "Prodict price is required")]
+
+    [Required(ErrorMessage = "Product price is required")]
     [Display(Name = "Product price *")]
     [DataType(DataType.Currency)]
     public decimal Price { get; set; }
 
+
     [Display(Name = "Product imageurl (optional)")]
-    public string? ImageUrl { get; set; }
+    public IFormFile ImageFile { get; set; }
 
 
 
@@ -45,17 +48,26 @@ public class ProductRegisterViewModel
     public IEnumerable<CategoryEntity> Categories { get; set; } = new List<CategoryEntity>();
 
 
-    public IEnumerable<SelectListItem> CategorySelectListItems
+    public class CustomSelectListItem : SelectListItem
+    {
+        public string InputType { get; set; }
+    }
+
+    public IEnumerable<CustomSelectListItem> CategoryCheckboxListItems
     {
         get
         {
-            return Categories.Select(c => new SelectListItem
+            return Categories.Select(c => new CustomSelectListItem
             {
                 Value = c.Id.ToString(),
-                Text = c.Name
+                Text = c.Name,
+                Selected = SelectedCategoryIds.Contains(c.Id),
+                InputType = "checkbox"
             });
         }
     }
+
+
 
     public ProductRegisterViewModel(IEnumerable<CategoryEntity> categories)
     {
@@ -72,8 +84,17 @@ public class ProductRegisterViewModel
             Name = productRegisterViewModel.Name,
             Description = productRegisterViewModel.Description,
             Price = productRegisterViewModel.Price,
-            ImageUrl = productRegisterViewModel.ImageUrl
         };
+
+        // Ladda upp bild
+        if (productRegisterViewModel.ImageFile != null)
+        {
+            using var stream = new MemoryStream();
+            productRegisterViewModel.ImageFile.CopyTo(stream);
+            product.ImageData = stream.ToArray();
+        }
+
+
 
         if (productRegisterViewModel.SelectedCategoryIds != null)
         {

@@ -12,7 +12,10 @@ public class ProductEntity
     [Column(TypeName = "money")]
     public decimal Price { get; set; }
 
-    public string? ImageUrl { get; set; }
+    [Column(TypeName = "varbinary(max)")]
+    public byte[]? ImageData { get; set; }
+
+
 
 
 
@@ -28,7 +31,7 @@ public class ProductEntity
             Name = entity?.Name,
             Description = entity?.Description,
             Price = entity?.Price,
-            ImageUrl = entity?.ImageUrl,
+            ImageData = entity?.ImageData,
         };
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Assignmen_ASP.NET.Models.Entities;
+﻿namespace Assignmen_ASP.NET.Models;
 
-public class CategoryEntity
+public class CategorySelectionModel
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

@@ -4,6 +4,7 @@ using Assignmen_ASP.NET.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignmen_ASP.NET.Migrations.Data
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230503073325_Products")]
+    partial class Products
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +33,6 @@ namespace Assignmen_ASP.NET.Migrations.Data
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsSelected")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -45,19 +45,16 @@ namespace Assignmen_ASP.NET.Migrations.Data
                         new
                         {
                             Id = 1,
-                            IsSelected = false,
                             Name = "New"
                         },
                         new
                         {
                             Id = 2,
-                            IsSelected = false,
                             Name = "Popular"
                         },
                         new
                         {
                             Id = 3,
-                            IsSelected = false,
                             Name = "Featured"
                         });
                 });
@@ -123,6 +120,7 @@ namespace Assignmen_ASP.NET.Migrations.Data
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ImageData")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")

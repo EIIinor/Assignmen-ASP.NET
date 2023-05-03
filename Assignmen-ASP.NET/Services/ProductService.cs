@@ -4,6 +4,7 @@ using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Assignmen_ASP.NET.Services;
 
 public class ProductService
@@ -16,7 +17,13 @@ public class ProductService
     }
 
 
-
+    // Används för att läsa innehållet i en ström till en byte-array
+    private async Task<byte[]> GetBytesFromStreamAsync(Stream stream)
+    {
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        return memoryStream.ToArray();
+    }
 
 
     public async Task<bool> CreateAsync(ProductRegisterViewModel productRegisterViewModel)
@@ -29,10 +36,11 @@ public class ProductService
                 Name = productRegisterViewModel.Name,
                 Description = productRegisterViewModel.Description,
                 Price = productRegisterViewModel.Price,
-                ImageUrl = productRegisterViewModel.ImageUrl
+                ImageData = await GetBytesFromStreamAsync(productRegisterViewModel.ImageFile!.OpenReadStream())
             };
 
             _context.Products.Add(productEntity);
+            await _context.SaveChangesAsync(); // spara ändringar i databasen
 
             // Hämta kategorierna från databasen
             var categories = await _context.Categories.ToListAsync();
@@ -64,6 +72,8 @@ public class ProductService
             return false;
         }
     }
+
+
 
 
 
