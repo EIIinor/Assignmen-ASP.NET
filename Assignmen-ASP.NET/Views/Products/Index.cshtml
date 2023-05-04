@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = Model.Title;
 
-    var products = await productService.GetAllASync();
+    //var products = await productService.GetAllASync();
 }
 
 <div class="container" style="padding-top: 150px">
@@ -14,12 +14,33 @@
     </div>
 
 
+
+    @foreach(var product in Model.Products)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-start align-items-center">
+                    <img src="/images/products/@product.ImageUrl" alt="@product.Name" height="100" width="100"/>
+                    <div class="ms-4">
+                        <div>@product.ArticleNumber</div>
+                        <div>@product.Name</div>
+                        <div>@product.Price</div>
+                        <div>@product.Description</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+
+@*
     @if (products != null)
     {
         foreach (var product in products)
         {
-            <a asp-controller="products" asp-action="details" asp-route-id="@product.Id" class="collection-item">
-                <img src="@product.ImageData" alt="@product.Name">
+            <a asp-controller="products" asp-action="details" asp-route-id="@product.ArticleNumber" class="collection-item">
+                <img src="@product.ImageUrl" alt="@product.Name">
                 <div class="body">
                     <div class="title">@product.Name</div>
                     <div class="info">
@@ -30,7 +51,9 @@
             </a>
 
         }
-    }
+    }*@
+
+
 </div>
 
 

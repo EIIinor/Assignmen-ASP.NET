@@ -3,12 +3,13 @@
 namespace Assignmen_ASP.NET.Models.Entities;
 
 
-[PrimaryKey(nameof(ArticleNumber), nameof(CategoryId))]
-public class ProductCategoryEntity
+[PrimaryKey(nameof(ArticleNumber), nameof(TagId))]
+public class ProductTagEntity
 {
     public string ArticleNumber { get; set; } = null!;
     public ProductEntity Product { get; set; } = null!;
 
-    public int CategoryId { get; set; }
-    public CategoryEntity Category { get; set; } = null!;
+
+    public int TagId { get; set; }
+    public TagEntity Tag { get; set; } = null!;
 }

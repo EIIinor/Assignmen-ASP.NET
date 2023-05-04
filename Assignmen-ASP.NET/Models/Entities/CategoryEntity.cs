@@ -1,8 +1,12 @@
-﻿namespace Assignmen_ASP.NET.Models.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Assignmen_ASP.NET.Models.Entities;
 
 public class CategoryEntity
 {
+    [Key]
     public int Id { get; set; }
-    public string Name { get; set; } = null!;
-    public bool IsSelected { get; set; }
+    public string CategoryName { get; set; } = null!;
+
+    public ICollection<ProductCategoryEntity> ProductTags { get; set; } = new HashSet<ProductCategoryEntity>();
 }

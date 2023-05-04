@@ -14,20 +14,20 @@ public class DataContext : DbContext
     public DbSet<ContactFormEntity> Comments { get; set; }
     public DbSet<CategoryEntity> Categories { get; set; }
     public DbSet<ProductCategoryEntity> ProductCategories { get; set; }
-
-
+    public DbSet<ProductTagEntity> ProductTags { get; set; }
+    public DbSet<TagEntity> Tags { get; set; }
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
+      //  base.OnModelCreating(modelBuilder);
 
 
-        modelBuilder.Entity<CategoryEntity>().HasData(
-          new CategoryEntity { Id = 1, Name = "New" },
-          new CategoryEntity { Id = 2, Name = "Popular" },
-          new CategoryEntity { Id = 3, Name = "Featured" }
-      );
+      //  //modelBuilder.Entity<CategoryEntity>().HasData(
+      //  //  new CategoryEntity { Id = 1, Name = "New" },
+      //  //  new CategoryEntity { Id = 2, Name = "Popular" },
+      //  //  new CategoryEntity { Id = 3, Name = "Featured" }
+      //);
     }
 }
 

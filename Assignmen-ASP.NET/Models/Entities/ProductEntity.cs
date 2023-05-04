@@ -1,22 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Assignmen_ASP.NET.Models.Entities;
 
 public class ProductEntity
 {
-    public int Id { get; set; }
+    [Key]
+    public string ArticleNumber { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
 
     [Column(TypeName = "money")]
     public decimal Price { get; set; }
-
-    [Column(TypeName = "varbinary(max)")]
-    public byte[]? ImageData { get; set; }
-
+   
+    public string? ImageUrl { get; set; }
 
 
+    public ICollection<ProductTagEntity> ProductTags { get; set; } = new HashSet<ProductTagEntity>();
 
 
     public ICollection<ProductCategoryEntity> ProductCategories { get; set; } = new List<ProductCategoryEntity>();
@@ -27,11 +28,11 @@ public class ProductEntity
     {
         return new ProductModel
         {
-            Id = entity?.Id,
+            ArticleNumber = entity?.ArticleNumber,
             Name = entity?.Name,
             Description = entity?.Description,
             Price = entity?.Price,
-            ImageData = entity?.ImageData,
+            ImageUrl = entity?.ImageUrl,
         };
     }
 }
