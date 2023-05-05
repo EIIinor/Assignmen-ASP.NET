@@ -23,6 +23,7 @@ builder.Services.AddScoped<TagRepository>();
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ProductTagRepository>();
+builder.Services.AddScoped<ProductCategoryRepository>();
 
 
 

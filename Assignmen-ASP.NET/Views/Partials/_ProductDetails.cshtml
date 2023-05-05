@@ -1,15 +1,20 @@
-﻿<section class="productdetail">
+﻿@model ProductDetailsViewModel
+@{
+    var product = Model.Products;
+}
+
+<section class="productdetail">
     <div class="container">
         <div class="images">
-            <img src="./images/placeholders/501x430.svg" alt="">
+            <img src="~/images/products/@product.ImageUrl" alt="">
             <img class="small1" src="./images/placeholders/120x113.svg" alt="">
             <img class="small" src="./images/placeholders/120x113.svg" alt="">
             <img class="small" src="./images/placeholders/120x113.svg" alt="">
             <img class="small" src="./images/placeholders/120x113.svg" alt="">
         </div>
         <div class="productinfo">
-            <h1>Young Start Smart Shoe in Fashion</h1>
-            <p class="ingress">Lirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+            <h1>@product.Name</h1>
+            <p class="ingress">@product.Description</p>
             <div class="stars">
                 <i class="fa-sharp fa-solid fa-star"></i>
                 <i class="fa-sharp fa-solid fa-star"></i>
@@ -17,7 +22,7 @@
                 <i class="fa-sharp fa-solid fa-star"></i>
                 <i class="fa-sharp fa-solid fa-star"></i>
             </div>
-            <p class="price">$30</p>
+            <p class="price">@product.Price</p>
             <div class="buttons">
                 <button class="plus-minus-btn">
                     <span class="plus-minus-symbol">-</span>
