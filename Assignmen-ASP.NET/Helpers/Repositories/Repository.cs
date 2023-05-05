@@ -4,14 +4,30 @@ using System.Linq.Expressions;
 
 namespace Assignmen_ASP.NET.Helpers.Repositories;
 
-public abstract class Repository<TEntity> where TEntity : class
-{
-    private readonly IdentityContext _context;
+//public abstract class Repository<TEntity> where TEntity : class
+//{
+//    private readonly IdentityContext _context;
 
-    protected Repository(IdentityContext context)
+//    protected Repository(IdentityContext context)
+//    {
+//        _context = context;
+//    }
+
+
+
+public abstract class Repository<TContext, TEntity> 
+    where TContext : DbContext 
+    where TEntity : class
+{
+    private readonly TContext _context;
+
+    protected Repository(TContext context)
     {
         _context = context;
     }
+
+
+
 
 
     public virtual async Task<TEntity> AddAsync(TEntity entity)

@@ -18,16 +18,16 @@ public class DataContext : DbContext
     public DbSet<TagEntity> Tags { get; set; }
 
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      //  base.OnModelCreating(modelBuilder);
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    base.OnModelCreating(modelBuilder);
 
 
-      //  //modelBuilder.Entity<CategoryEntity>().HasData(
-      //  //  new CategoryEntity { Id = 1, Name = "New" },
-      //  //  new CategoryEntity { Id = 2, Name = "Popular" },
-      //  //  new CategoryEntity { Id = 3, Name = "Featured" }
-      //);
-    }
+    //    //modelBuilder.Entity<CategoryEntity>().HasData(
+    //    //  new CategoryEntity { Id = 1, Name = "New" },
+    //    //  new CategoryEntity { Id = 2, Name = "Popular" },
+    //    //  new CategoryEntity { Id = 3, Name = "Featured" }
+    //  );
+    //}
 }
 

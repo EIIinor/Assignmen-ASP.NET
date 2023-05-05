@@ -11,29 +11,46 @@ public class ProductService
 {
     private readonly ProductRepository _productRepo;
     private readonly ProductTagRepository _productTagRepo;
+    private readonly CategoryRepository _categoryRepo;
+    private readonly ProductCategoryRepository _productCategoryRepo;
     private readonly DataContext _context;
     private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ProductService(ProductRepository productRepo, ProductTagRepository productTagRepo, DataContext context, IWebHostEnvironment webHostEnvironment)
+    public ProductService(ProductRepository productRepo, ProductTagRepository productTagRepo, DataContext context, IWebHostEnvironment webHostEnvironment, CategoryRepository categoryRepo, ProductCategoryRepository productCategoryRepo)
     {
         _productRepo = productRepo;
         _productTagRepo = productTagRepo;
         _context = context;
         _webHostEnvironment = webHostEnvironment;
+        _categoryRepo = categoryRepo;
+        _productCategoryRepo = productCategoryRepo;
     }
 
 
-    public async Task<bool> CreateAsync(ProductEntity entity)
+    public async Task<ProductModel> CreateAsync(ProductEntity entity)
     {
         var _entity = await _productRepo.GetAsync(x => x.ArticleNumber == entity.ArticleNumber);
         if (_entity == null)
         {
             _entity = await _productRepo.AddAsync(entity);
             if (_entity != null)
-                return true;
+                return _entity;
         }
-        return false;
+        return null!;
     }
+
+
+    //public async Task<bool> CreateAsync(ProductEntity entity)
+    //{
+    //    var _entity = await _productRepo.GetAsync(x => x.ArticleNumber == entity.ArticleNumber);
+    //    if (_entity == null)
+    //    {
+    //        _entity = await _productRepo.AddAsync(entity);
+    //        if (_entity != null)
+    //            return true;
+    //    }
+    //    return false;
+    //}
 
 
     public async Task AddProductTagsAsync(ProductEntity entity, string[] tags)
@@ -44,6 +61,20 @@ public class ProductService
             {
                 ArticleNumber = entity.ArticleNumber,
                 TagId = int.Parse(tag),
+            });
+        }
+    }
+
+
+
+    public async Task AddProductCategoriesAsync(ProductEntity entity, string[] tags)
+    {
+        foreach (var tag in tags)
+        {
+            await _productCategoryRepo.AddAsync(new ProductCategoryEntity
+            {
+                ArticleNumber = entity.ArticleNumber,
+                CategoryId = int.Parse(tag),
             });
         }
     }

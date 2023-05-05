@@ -50,23 +50,54 @@ public class ProductsController : Controller
         return View();
     }
 
+
     [HttpPost]
-    public async Task<IActionResult> Register(ProductRegisterViewModel productRegisterViewModel, string[] tags)
+    public async Task<IActionResult> Register(ProductRegisterViewModel viewModel, string[] tags, string[] categories)
     {
         if (ModelState.IsValid)
         {
-            if (await _productService.CreateAsync(productRegisterViewModel))
+            var product = await _productService.CreateAsync(viewModel);              
+            
+            await _productService.AddProductTagsAsync(viewModel, tags);
+            await _productService.AddProductCategoriesAsync(viewModel, categories);
+
+            if (product != null)
             {
-                await _productService.AddProductTagsAsync(productRegisterViewModel, tags);
+                if (viewModel.Image != null)
+                    await _productService.UploadImageAsync(product, viewModel.Image);
+
                 return RedirectToAction("Index", "Products");
             }
+
             ModelState.AddModelError("", "Something went wrong, go get coffee");
         }
 
         ViewBag.Tags = await _tagService.GetTagsAsync(tags);
-        ViewBag.Categories = await _categoryService.GetCategoriesAsync();
-        return View(productRegisterViewModel);
+        ViewBag.Categories = await _categoryService.GetCategoriesAsync(categories);
+        return View(viewModel);
     }
+
+
+
+
+
+    //[HttpPost]
+    //public async Task<IActionResult> Register(ProductRegisterViewModel productRegisterViewModel, string[] tags)
+    //{
+    //    if (ModelState.IsValid)
+    //    {
+    //        if (await _productService.CreateAsync(productRegisterViewModel))
+    //        {
+    //            await _productService.AddProductTagsAsync(productRegisterViewModel, tags);
+    //            return RedirectToAction("Index", "Products");
+    //        }
+    //        ModelState.AddModelError("", "Something went wrong, go get coffee");
+    //    }
+
+    //    ViewBag.Tags = await _tagService.GetTagsAsync(tags);
+    //    ViewBag.Categories = await _categoryService.GetCategoriesAsync();
+    //    return View(productRegisterViewModel);
+    //}
 
 
 
