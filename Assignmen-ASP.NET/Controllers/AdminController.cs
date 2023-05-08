@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Assignmen_ASP.NET.Controllers;
 
 
-[Authorize(Roles = "admin")]
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     public IActionResult Index()

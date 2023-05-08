@@ -3,7 +3,7 @@
 
         @if(signInManager.IsSignedIn(User))
         {
-            @if (signInManager.IsSignedIn(User) && User.IsInRole("admin"))
+            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
             {
                 <a asp-action="Index" asp-controller="Admin">Admin</a>
             }

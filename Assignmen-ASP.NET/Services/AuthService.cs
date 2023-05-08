@@ -1,6 +1,4 @@
-﻿using Assignmen_ASP.NET.Contexts;
-using Assignmen_ASP.NET.Models.Entities;
-using Assignmen_ASP.NET.Models.Identity;
+﻿using Assignmen_ASP.NET.Models.Identity;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,20 +13,8 @@ public class AuthService
     private readonly SignInManager<AppUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
 
-    //private readonly UserManager<IdentityUser> _userManager;
-    //private readonly SignInManager<IdentityUser> _signInManager;
-    //private readonly RoleManager<IdentityRole> _roleManager;
-    //private readonly IdentityContext _identityContext;
-    //private readonly SeedService _seedService;
 
-    //public AuthService(UserManager<IdentityUser> userManager, IdentityContext identityContext, SignInManager<IdentityUser> signInManager, SeedService seedService, RoleManager<IdentityRole> roleManager)
-    //{
-    //    _userManager = userManager;
-    //    _identityContext = identityContext;
-    //    _signInManager = signInManager;
-    //    _seedService = seedService;
-    //    _roleManager = roleManager;
-    //}
+
 
     public AuthService(UserManager<AppUser> userManager, AddressService addressService, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
     {
@@ -40,54 +26,37 @@ public class AuthService
 
     public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
     {
-        AppUser appUser = model;
-        var roleName = "User";
-
-        if (!await _roleManager.Roles.AnyAsync())
+        try
         {
-            await _roleManager.CreateAsync(new IdentityRole("Admin"));
-            await _roleManager.CreateAsync(new IdentityRole("User"));
-        }
+            AppUser appUser = model;
+            var roleName = "User";
+   
 
-        if (!await _userManager.Users.AnyAsync())
-            roleName = "Admin";
-
-        var result =await _userManager.CreateAsync(appUser, model.Password);
-        if (result.Succeeded)
-        {
-            await _userManager.AddToRoleAsync(appUser, roleName);
-
-            var addressEntity = await _addressService.GetOrCreateAsync(model);
-            if (addressEntity != null)
+            if (!await _roleManager.Roles.AnyAsync())
             {
-                await _addressService.AddAddressAsync(appUser, addressEntity);
-                return true;
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                await _roleManager.CreateAsync(new IdentityRole("User"));
             }
+
+            roleName = "User";
+            if (!await _userManager.Users.AnyAsync())
+                roleName = "Admin";
+
+            var result = await _userManager.CreateAsync(appUser, model.Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(appUser, roleName);
+
+                var addressEntity = await _addressService.GetOrCreateAsync(model);
+                if (addressEntity != null)
+                {
+                    await _addressService.AddAddressAsync(appUser, addressEntity);
+                    return true;
+                }
+            }
+            return true;
         }
-        return false;
-
-        //try
-        //{
-        //    await _seedService.SeedRoles();
-        //    var roleName = "user";
-
-        //    if (!await _userManager.Users.AnyAsync())
-        //        roleName = "admin";
-
-        //    IdentityUser identityUser = model;
-        //    await _userManager.CreateAsync(identityUser, model.Password);
-
-        //    await _userManager.AddToRoleAsync(identityUser, roleName);
-
-        //    UserProfileEntity userProfileEntity = model;
-        //    userProfileEntity.UserId = identityUser.Id;
-
-        //    _identityContext.UserProfiles.Add(userProfileEntity);
-        //    await _identityContext.SaveChangesAsync();
-
-        //    return true;
-        //}
-        //catch { return false; }
+        catch { return false; }
     }
 
 
@@ -101,13 +70,6 @@ public class AuthService
             return result.Succeeded;
         }
         return false;
-
-        //try
-        //{
-        //    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-        //    return result.Succeeded;
-        //}
-        //catch { return false; }
     }
 
 

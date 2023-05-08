@@ -9,7 +9,6 @@ namespace Assignmen_ASP.NET.Controllers;
 public class AccountController : Controller
 {
 
-    //private readonly UserService _userService;
     private readonly AuthService _authService;
 
     public AccountController(AuthService authService)
@@ -41,23 +40,6 @@ public class AccountController : Controller
             ModelState.AddModelError("", "A user with the same email already exists");
         }
         return View(userRegisterViewModel);
-
-
-        //if (ModelState.IsValid)
-        //{
-        //    if (await _userService.UserExist(x => x.Email == userRegisterViewModel.Email))
-        //    {
-        //        ModelState.AddModelError("", "User already exist");
-        //    }
-        //    else
-        //    {
-        //        if (await _userService.RegisterAsync(userRegisterViewModel))
-        //            return RedirectToAction("Login", "Account");
-        //        else
-        //            ModelState.AddModelError("", "Something went wrong");
-        //    }
-        //}
-        //return View(userRegisterViewModel);
     }
 
 

@@ -1,8 +1,7 @@
 ﻿using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.Models.Identity;
-using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
+
 
 namespace Assignmen_ASP.NET.ViewModels
 {

@@ -37,13 +37,16 @@ builder.Services.AddScoped<CategoryService>();
 
 
 
+
 builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.Password.RequiredLength = 8;
-    x.User.RequireUniqueEmail = true;
+    x.User.RequireUniqueEmail = false;
 
 }).AddEntityFrameworkStores<IdentityContext>();
+
+
 
 
 

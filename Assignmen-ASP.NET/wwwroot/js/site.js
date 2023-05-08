@@ -1,4 +1,102 @@
-﻿function footerPosition(element, scrollHeight, innerHeight) {
+﻿/*user registration validation */
+
+$(document).ready(function () {
+    $("form").validate({
+        onkeyup: function (element) {
+            this.element(element);
+        },
+        rules: {
+            FirstName: {
+                required: true,
+                minlength: 2
+            },
+            LastName: {
+                required: true,
+                minlength: 2
+            },
+            StreetName: {
+                required: true
+            },
+            PostalCode: {
+                required: true,
+                digits: true,
+                minlength: 5
+            },
+            City: {
+                required: true
+            },
+            Email: {
+                required: true,
+                email: true
+            },
+            Password: {
+                required: true,
+                minlength: 8
+            },
+            ConfirmPassword: {
+                required: true,
+                equalTo: "#Password"
+            },
+            TermsAndAgreement: {
+                required: true
+            }
+        },
+        messages: {
+            FirstName: {
+                required: "First name is required",
+                minlength: "First name must be at least 2 characters"
+            },
+            LastName: {
+                required: "Last name is required",
+                minlength: "Last name must be at least 2 characters"
+            },
+            StreetName: {
+                required: "Street name is required"
+            },
+            PostalCode: {
+                required: "Postal code is required",
+                digits: "Postal code must contain only digits",
+                minlength: "Postal code must be at least 5 digits"
+            },
+            City: {
+                required: "City is required"
+            },
+            Email: {
+                required: "Email is required",
+                email: "Email must be a valid email address"
+            },
+            Password: {
+                required: "Password is required",
+                minlength: "Password must be at least 8 characters"
+            },
+            ConfirmPassword: {
+                required: "Confirm password is required",
+                equalTo: "Passwords do not match"
+            },
+            TermsAndAgreement: {
+                required: "You need to accept the terms and agreements"
+            }
+        }
+    });
+
+    $("form").submit(function (event) {
+        if (!$("form").valid()) {
+            event.preventDefault(); // hindra standarduppförande av formuläret
+        }
+    });
+
+});
+
+
+
+
+
+
+
+
+//footer placement 
+
+function footerPosition(element, scrollHeight, innerHeight) {
     try {
         const _element = document.querySelector(element)
         const isTallerThanScreen = scrollHeight >= (innerHeight + _element.scrollHeight)
