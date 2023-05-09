@@ -10,12 +10,3 @@ public class UserAddressRepository : Repository<IdentityContext, UserAddressEnti
     {
     }
 }
-
-
-
-//public class UserAddressRepository : Repository<UserAddressEntity>
-//{
-//    public UserAddressRepository(IdentityContext context) : base(context)
-//    {
-//    }
-//}

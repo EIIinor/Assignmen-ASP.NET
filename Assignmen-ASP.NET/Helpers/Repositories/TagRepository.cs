@@ -9,12 +9,3 @@ public class TagRepository : Repository<DataContext, TagEntity>
     {
     }
 }
-
-
-
-//public class TagRepository : Repository<TagEntity>
-//{
-//    public TagRepository(IdentityContext context) : base(context)
-//    {
-//    }
-//}

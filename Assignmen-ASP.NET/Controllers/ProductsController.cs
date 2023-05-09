@@ -81,26 +81,6 @@ public class ProductsController : Controller
 
 
 
-    //[HttpPost]
-    //public async Task<IActionResult> Register(ProductRegisterViewModel productRegisterViewModel, string[] tags)
-    //{
-    //    if (ModelState.IsValid)
-    //    {
-    //        if (await _productService.CreateAsync(productRegisterViewModel))
-    //        {
-    //            await _productService.AddProductTagsAsync(productRegisterViewModel, tags);
-    //            return RedirectToAction("Index", "Products");
-    //        }
-    //        ModelState.AddModelError("", "Something went wrong, go get coffee");
-    //    }
-
-    //    ViewBag.Tags = await _tagService.GetTagsAsync(tags);
-    //    ViewBag.Categories = await _categoryService.GetCategoriesAsync();
-    //    return View(productRegisterViewModel);
-    //}
-
-
-
     public async Task<IActionResult> Details(string articleNumber)
     {
         var product = await _productService.GetProductByArticleNumberAsync(articleNumber);

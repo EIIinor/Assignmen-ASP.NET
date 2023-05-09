@@ -10,13 +10,3 @@ public class CategoryRepository : Repository<DataContext, CategoryEntity>
     {
     }
 }
-
-
-
-
-//public class CategoryRepository : Repository<CategoryEntity>
-//{
-//    public CategoryRepository(IdentityContext context) : base(context)
-//    {
-//    }
-//}

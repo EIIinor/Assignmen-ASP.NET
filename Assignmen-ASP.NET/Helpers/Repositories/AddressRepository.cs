@@ -9,12 +9,3 @@ public class AddressRepository : Repository<IdentityContext, AddressEntity>
     {
     }
 }
-
-
-
-//public class AddressRepository : Repository<AddressEntity>
-//{
-//    public AddressRepository(IdentityContext context) : base(context)
-//    {
-//    }
-//}

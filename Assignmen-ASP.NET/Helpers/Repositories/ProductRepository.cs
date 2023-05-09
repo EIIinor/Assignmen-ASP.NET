@@ -9,12 +9,3 @@ public class ProductRepository : Repository<DataContext, ProductEntity>
     {
     }
 }
-
-
-
-//public class ProductRepository : Repository<ProductEntity>
-//{
-//    public ProductRepository(IdentityContext context) : base(context)
-//    {
-//    }
-//}
