@@ -101,8 +101,21 @@ public class ProductsController : Controller
 
 
 
-    public IActionResult Details()
+    public async Task<IActionResult> Details(string articleNumber)
     {
-        return View();
+        var product = await _productService.GetProductByArticleNumberAsync(articleNumber);
+
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        var viewModel = new ProductDetailsViewModel
+        {
+            Product = product
+        };
+
+        return View(viewModel);
     }
+
 }

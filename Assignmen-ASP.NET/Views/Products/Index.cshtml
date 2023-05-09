@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = Model.Title;
 
-    //var products = await productService.GetAllASync();
+    var products = await productService.GetAllASync();
 }
 
 <div class="container" style="padding-top: 150px">
@@ -20,7 +20,7 @@
     <div class="container">
 
         <div class="grid">
-        @foreach (var product in Model.Products)
+        @foreach (var product in products)
         {
 
             <a asp-controller="products" asp-action="details" asp-route-id="@product.ArticleNumber" class="collection-item">

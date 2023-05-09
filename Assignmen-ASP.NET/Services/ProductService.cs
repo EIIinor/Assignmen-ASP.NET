@@ -104,6 +104,18 @@ public class ProductService
     }
 
 
+
+    public async Task<ProductModel> GetProductByArticleNumberAsync(string articleNumber)
+    {
+        var productEntity = await _productRepo.GetAsync(x => x.ArticleNumber == articleNumber);
+
+        return productEntity;
+    }
+
+
+
+
+
     //public async Task<IEnumerable<ProductModel>> GetAllASync()
     //{
     //    var products = new List<ProductModel>();

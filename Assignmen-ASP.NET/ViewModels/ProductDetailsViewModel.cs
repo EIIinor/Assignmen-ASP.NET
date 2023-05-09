@@ -4,5 +4,5 @@ namespace Assignmen_ASP.NET.ViewModels;
 
 public class ProductDetailsViewModel
 {
-    public IEnumerable<ProductModel> Products { get; set; } = new List<ProductModel>();
+    public ProductModel Product { get; set; } = new ProductModel();
 }
