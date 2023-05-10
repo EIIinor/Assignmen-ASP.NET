@@ -5,14 +5,14 @@
 
 @if (Model.Product != null)
 {
-    <section class="productdetail">
+    <section class="productdetail" style="margin-top:60px">
         <div class="container">
             <div class="images">
-                <img src="~/images/products/@product.ImageUrl" alt="">
-                <img class="small1" src="./images/placeholders/120x113.svg" alt="">
-                <img class="small" src="./images/placeholders/120x113.svg" alt="">
-                <img class="small" src="./images/placeholders/120x113.svg" alt="">
-                <img class="small" src="./images/placeholders/120x113.svg" alt="">
+                <img src="~/images/products/@product.ImageUrl" alt="@product.Name" height="430px" width="501px">
+                <img class="small1" src="~/images/products/@product.ImageUrl" alt="@product.Name" height="113px" width="120px">
+                <img class="small" src="~/images/products/@product.ImageUrl" alt="@product.Name" height="113px" width="120px">
+                <img class="small" src="~/images/products/@product.ImageUrl" alt="@product.Name" height="113px" width="120px">
+                <img class="small" src="~/images/products/@product.ImageUrl" alt="@product.Name" height="113px" width="120px">
             </div>
             <div class="productinfo">
                 <h1>@product.Name</h1>
@@ -54,8 +54,8 @@ else
 }
 
 
-
-@*<section class="moreinfo">
+@*
+<section class="moreinfo">
     <div class="container">
 
         <div class="boxes">

@@ -1,4 +1,5 @@
-﻿using Assignmen_ASP.NET.Models.Identity;
+﻿using Assignmen_ASP.NET.Models.Entities;
+using Assignmen_ASP.NET.Models.Identity;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,13 +16,13 @@ public class AuthService
 
 
 
-
     public AuthService(UserManager<AppUser> userManager, AddressService addressService, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _addressService = addressService;
         _signInManager = signInManager;
         _roleManager = roleManager;
+
     }
 
     public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
@@ -30,7 +31,7 @@ public class AuthService
         {
             AppUser appUser = model;
             var roleName = "User";
-   
+
 
             if (!await _roleManager.Roles.AnyAsync())
             {
@@ -79,4 +80,38 @@ public class AuthService
         return _signInManager.IsSignedIn(user);
 
     }
+
+
+
+
+
+
+
+
+    public async Task<IEnumerable<(AppUser user, IEnumerable<string> roles, IEnumerable<UserAddressEntity> addresses)>> GetAllUsersAsync()
+    {
+        var users = await _userManager.Users
+            .Include(u => u.Addresses)
+            .ToListAsync();
+
+        var roles = await _roleManager.Roles.ToListAsync();
+
+        var result = new List<(AppUser user, IEnumerable<string> roles, IEnumerable<UserAddressEntity> addresses)>();
+
+        foreach (var user in users)
+        {
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var userRoleNames = userRoles.Select(r => r.ToString());
+            var userAddresses = user.Addresses;
+
+            var userTuple = (user, userRoleNames, userAddresses);
+            result.Add(userTuple);
+        }
+
+        return result;
+    }
+
+
+
+
 }

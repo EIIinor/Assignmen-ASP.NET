@@ -1,6 +1,7 @@
 ﻿using Assignmen_ASP.NET.Helpers.Repositories;
 using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.Models.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignmen_ASP.NET.Services;
 
@@ -36,4 +37,13 @@ public class AddressService
             AddressId = addressEntity.Id
         });
     }
+
+
+    public async Task<IEnumerable<AddressEntity>> GetAllAddressesAsync()
+    {
+        return await _addressRepo.GetAllAsync();
+    }
+
+
+
 }

@@ -24,7 +24,7 @@ builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ProductTagRepository>();
 builder.Services.AddScoped<ProductCategoryRepository>();
-
+builder.Services.AddScoped<AppUserRepository>();
 
 
 // Services 
@@ -44,7 +44,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
     x.Password.RequiredLength = 8;
     x.User.RequireUniqueEmail = false;
 
-}).AddEntityFrameworkStores<IdentityContext>();
+}).AddEntityFrameworkStores<IdentityContext>()
+  .AddRoles<IdentityRole>();
 
 
 

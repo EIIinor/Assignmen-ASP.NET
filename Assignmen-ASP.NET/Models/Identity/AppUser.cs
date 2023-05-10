@@ -11,4 +11,5 @@ public class AppUser : IdentityUser
     public string? ImageUrl { get; set; }
 
     public ICollection<UserAddressEntity> Addresses { get; set; } = new HashSet<UserAddressEntity>();
+
 }

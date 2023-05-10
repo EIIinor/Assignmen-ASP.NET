@@ -1,6 +1,17 @@
-﻿@{ ViewData["Title"] = "Admin"; }
+﻿
 
-<div>
-    <a class="link" asp-controller="Products" asp-action="register">ADD NEW PRODUCT</a>
-    <a class="link" asp-controller="" asp-action="">ALL USERS</a>
+<div class="section">
+    <div class="container" style="padding-top: 150px">
+        <div>
+            <h1>BACKOFFICE</h1>
+            <div>
+                <a asp-controller="admin" asp-action="users">Users</a>
+            </div>
+            <div>
+                <a asp-controller="admin" asp-action="products">Products</a>
+            </div>
+        </div>
+
+    </div>
 </div>
+

@@ -106,51 +106,5 @@ namespace Assignmen_ASP.NET.ViewModels
             };
 
         }
-
-
-
-        //public static implicit operator IdentityUser(UserRegisterViewModel model)
-        //{
-        //    return new IdentityUser
-        //    {
-        //        UserName = model.Email,
-        //        Email = model.Email,
-        //        PhoneNumber = model.PhoneNumber,
-        //    };
-        //}
-
-
-
-        //public static implicit operator UserProfileEntity(UserRegisterViewModel model)
-        //{
-        //    return new UserProfileEntity
-        //    {
-        //        FirstName = model.FirstName,
-        //        LastName = model.LastName,
-        //        StreetName = model.StreetName,
-        //        PostalCode = model.PostalCode,
-        //        City = model.City,
-        //    };           
-        //}
-
-
-        //public static implicit operator UserEntity(UserRegisterViewModel userRegisterviewModel)
-        //{
-        //    var userEntity = new UserEntity { Email = userRegisterviewModel.Email };
-        //    userEntity.GenerateSecurePassword(userRegisterviewModel.Password);
-        //    return userEntity;
-        //}
-
-        //public static implicit operator ProfileEntity(UserRegisterViewModel userRegisterviewModel)
-        //{
-        //    return new ProfileEntity
-        //    {
-        //        FirstName = userRegisterviewModel.FirstName,
-        //        LastName = userRegisterviewModel.LastName,
-        //        StreetName = userRegisterviewModel.StreetName,
-        //        PostalCode = userRegisterviewModel.PostalCode,
-        //        City = userRegisterviewModel.City,
-        //    };
-        //}
     }
 }

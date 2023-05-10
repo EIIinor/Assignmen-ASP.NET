@@ -1107,3 +1107,94 @@ footer .container {
     justify-self: flex-start;
   }
 }
+
+.productdetail {
+  margin-top: 60px;
+}
+.productdetail .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+.productdetail .images {
+  padding-left: 40px;
+  margin: 5px;
+}
+.productdetail .images .small {
+  padding-top: 5px;
+  padding-left: 3px;
+}
+.productdetail .images .small1 {
+  padding-top: 5px;
+}
+.productdetail .productinfo {
+  margin: 5px;
+}
+.productdetail .productinfo h1 {
+  font-size: 22px;
+  color: #202020;
+}
+.productdetail .productinfo .ingress {
+  margin-right: 40px;
+}
+.productdetail .productinfo .stars {
+  color: #F9C936;
+  font-size: 22px;
+}
+.productdetail .productinfo .price {
+  padding-top: 7px;
+  font-size: 22px;
+  color: #202020;
+  font-weight: 600;
+}
+.productdetail .productinfo .buttons .plus-minus-btn {
+  display: inline-block;
+  border: none;
+  background-color: #ccc;
+  color: #fff;
+  font-size: 16px;
+  padding: 8px;
+  cursor: pointer;
+}
+.productdetail .productinfo .buttons .plus-minus-symbol {
+  font-size: 20px;
+  font-weight: bold;
+}
+.productdetail .productinfo .buttons .number-symbol {
+  border: 1px solid #AEAEAE;
+  padding: 8px;
+  font-size: 20px;
+}
+.productdetail .productinfo .status {
+  display: flex;
+  padding-top: 30px;
+}
+.productdetail .productinfo .status .red {
+  background-color: #FA3150;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.productdetail .productinfo .status .yellow {
+  background-color: #ffd800;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.productdetail .productinfo .status .turquoise {
+  background-color: #62fce0;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  margin-right: 40px;
+}
+.productdetail .productinfo .btn-white {
+  padding-left: 0;
+  padding-bottom: 20px;
+}
+.productdetail .productinfo .category {
+  font-size: 12px;
+  margin-top: 20px;
+}

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<(AppUser user, IEnumerable<string> roles, IEnumerable<UserAddressEntity> addresses)>
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<style>
+    .table-with-margin {
+        margin-bottom: 20px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+<div section="admin" style="background-color:lightgray">
+    <div class="container" style="padding:150px">
+        <div class="left-side">
+            <h1>All users</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="padding-right:150px">User</th>
+                        <th style="padding-right:150px">Email</th>
+                        <th style="padding-right:150px">Address</th>
+                        <th style="padding-right:150px">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var userTuple in Model)
+                    {
+                        var user = userTuple.user;
+                        var roles = userTuple.roles;
+                        var addresses = userTuple.addresses;
+
+                        <tr>
+                            <td>@user.FirstName @user.LastName</td>
+                            <td>@user.Email</td>
+                            <td>
+                                <ul>
+                                    @foreach (var userAddress in addresses)
+                                    {
+                                        <li>
+                                            @if (userAddress.Address != null)
+                                            {
+                                                @userAddress.Address.StreetName @userAddress.Address.PostalCode @userAddress.Address.City
+                                            }
+                                        </li>
+                                    }
+
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach (var role in roles)
+                                    {
+                                        <li>@role</li>
+                                    }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="right-side">
+            <h1>Add user</h1>
+            <partial name="/Views/Partials/_userRegisterForm.cshtml"/>
+        </div>
+    </div>
+
+</div>
