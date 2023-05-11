@@ -25,6 +25,8 @@ public class AuthService
 
     }
 
+
+
     public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
     {
         try
@@ -32,16 +34,20 @@ public class AuthService
             AppUser appUser = model;
             var roleName = "User";
 
-
             if (!await _roleManager.Roles.AnyAsync())
             {
                 await _roleManager.CreateAsync(new IdentityRole("Admin"));
                 await _roleManager.CreateAsync(new IdentityRole("User"));
             }
 
-            roleName = "User";
             if (!await _userManager.Users.AnyAsync())
+            {
                 roleName = "Admin";
+            }
+            else if (!string.IsNullOrEmpty(model.SelectedRole))
+            {
+                roleName = model.SelectedRole;
+            }
 
             var result = await _userManager.CreateAsync(appUser, model.Password);
             if (result.Succeeded)
@@ -55,10 +61,49 @@ public class AuthService
                     return true;
                 }
             }
-            return true;
+            return false;
         }
         catch { return false; }
     }
+
+
+
+
+
+    //public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
+    //{
+    //    try
+    //    {
+    //        AppUser appUser = model;
+    //        var roleName = "User";
+
+
+    //        if (!await _roleManager.Roles.AnyAsync())
+    //        {
+    //            await _roleManager.CreateAsync(new IdentityRole("Admin"));
+    //            await _roleManager.CreateAsync(new IdentityRole("User"));
+    //        }
+
+    //        roleName = "User";
+    //        if (!await _userManager.Users.AnyAsync())
+    //            roleName = "Admin";
+
+    //        var result = await _userManager.CreateAsync(appUser, model.Password);
+    //        if (result.Succeeded)
+    //        {
+    //            await _userManager.AddToRoleAsync(appUser, roleName);
+
+    //            var addressEntity = await _addressService.GetOrCreateAsync(model);
+    //            if (addressEntity != null)
+    //            {
+    //                await _addressService.AddAddressAsync(appUser, addressEntity);
+    //                return true;
+    //            }
+    //        }
+    //        return true;
+    //    }
+    //    catch { return false; }
+    //}
 
 
 

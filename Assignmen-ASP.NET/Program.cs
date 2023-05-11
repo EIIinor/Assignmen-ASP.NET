@@ -25,6 +25,7 @@ builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ProductTagRepository>();
 builder.Services.AddScoped<ProductCategoryRepository>();
 builder.Services.AddScoped<AppUserRepository>();
+builder.Services.AddScoped<ContactFormRepository>();
 
 
 // Services 

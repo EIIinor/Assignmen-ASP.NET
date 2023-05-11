@@ -79,7 +79,7 @@ namespace Assignmen_ASP.NET.ViewModels
         public bool TermsAndAgreement { get; set; } = false;
 
 
-
+        public string? SelectedRole { get; set; } // new property for selected role
 
 
 

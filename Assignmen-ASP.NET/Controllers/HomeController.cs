@@ -1,4 +1,5 @@
 ﻿using Assignmen_ASP.NET.Models;
+using Assignmen_ASP.NET.Services;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,8 +7,21 @@ namespace Assignmen_ASP.NET.Controllers;
 
 public class HomeController : Controller
 {
+
+
+    private readonly ProductService _productService;
+
+    public HomeController(ProductService productService)
+    {
+        _productService = productService;
+    }
+
+
+
+
     public IActionResult Index()
     {
+
         var viewModel = new HomeIndexViewModel()
         {
 
@@ -70,6 +84,7 @@ public class HomeController : Controller
                 ImageUrl = "images/placeholders/625x647.svg",
 
             },
+
 
             BestCollection = new GridCollectionViewModel
             {

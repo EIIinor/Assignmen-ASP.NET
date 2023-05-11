@@ -40,7 +40,6 @@ public abstract class Repository<TContext, TEntity>
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         return await _context.Set<TEntity>().ToListAsync();
-
     }
 
 

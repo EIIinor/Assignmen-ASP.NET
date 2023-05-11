@@ -1,0 +1,31 @@
+﻿@model ContactsIndexViewModel
+@{
+    ViewData["Title"] = Model.Title;
+
+    var comments = await Model.ContactFormService.GetAllASync();
+}
+
+
+<div class="section">
+    <div class="container" style="padding-top:100px">
+        <div>
+            <h1>Comments</h1>
+            <div class="grid">
+                @foreach (var comment in comments)
+                {
+
+                <div style="padding:20px ; border:1px solid black">
+                    <div>Id: @comment.Id</div>
+                    <div>Name: @comment.Name</div>
+                    <div>Email: @comment.Email</div>
+                    <div>Phone: @comment.PhoneNumber</div>
+                    <div>Company: @comment.Company</div>
+                    <div>Comment: @comment.Text</div>
+                </div>
+
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
