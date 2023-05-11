@@ -4,6 +4,7 @@
     ViewData["Title"] = "Admin";
 }
 
+
 <style>
     .table-with-margin {
         margin-bottom: 20px;
@@ -66,8 +67,7 @@
             </table>
         </div>
         <div class="right-side">
-            <h1>Add user</h1>
-            <partial name="/Views/Partials/_userRegisterForm.cshtml"/>
+            <a asp-action="addUser" asp-controller="admin" >Add user</a>
         </div>
     </div>
 

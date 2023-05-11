@@ -1,5 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ProductsIndexViewModel
 @{
+    ViewData["Title"] = Model.Title;
+
+    var products = await productService.GetAllASync();
 }
+
+<div class="container" style="padding-top: 150px">
+
+    <h1 class="title">@Model.Title</h1>
+
+    <div class="mb-5">
+        <a class="link" asp-controller="products" asp-action="register">Register new product</a>
+    </div>
+
+
+
+
+    <section class="grid-collection">
+        <div class="container">
+
+            <div class="grid">
+                @foreach (var product in products)
+                {
+
+                    <a asp-controller="products" asp-action="details" asp-route-articleNumber="@product.ArticleNumber" class="collection-item">
+                        <img src="~/images/products/@product.ImageUrl" alt="@product.Name">
+                        <div class="body">
+                            <div class="title">@product.Name</div>
+                            <div class="info">
+                                <div class="price">$@product.Price</div>
+                                <i class="add-cart fa-regular fa-cart-plus"></i>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+
+        </div>
+    </section>
+</div>
