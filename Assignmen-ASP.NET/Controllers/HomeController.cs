@@ -36,7 +36,7 @@ public class HomeController : Controller
             {
                 GridItems = new List<GridCollectionItemModel>
                 {
-                    new GridCollectionItemModel { Id = "9", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/369x310.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "9", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/369x310.svg" },
                 },
 
                 Title = "50% OFF",
@@ -57,13 +57,13 @@ public class HomeController : Controller
                 LinkUrl = "/products",
                 GridItems = new List<GridCollectionItemModel>
                 {
-                    new GridCollectionItemModel { Id = "9", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "10", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "11", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "12", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "13", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "14", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "15", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "9", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "10", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "11", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "12", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "13", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "14", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
+                    new GridCollectionItemModel { ArticleNumber = "15", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
                 }
             },
 
@@ -98,11 +98,11 @@ public class HomeController : Controller
                 Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
                 GridItems = popularProducts.Select(p => new GridCollectionItemModel
                 {
-                    Id = p.ArticleNumber,
+                    ArticleNumber = p.ArticleNumber,
                     Title = p.Name,
                     Price = p.Price ?? 0,
                     ImageUrl = "/images/products/" + p.ImageUrl,
-                    Tags = p.ProductTags.Select(t => t.Tag.TagName).ToList()
+                    Tags = p.ProductTags.Select(pt => pt.Tag).ToList()
                 }).ToList()
             },
 

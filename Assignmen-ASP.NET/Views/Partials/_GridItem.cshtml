@@ -1,7 +1,13 @@
 ﻿@model GridCollectionItemModel
 
-<a asp-controller="products" asp-action="details" asp-route-id="@Model.Id" class="collection-item">
+<a asp-controller="products" asp-action="details" asp-route-articleNumber="@Model.ArticleNumber" class="collection-item">
     <img src="@Model.ImageUrl" alt="@Model.Title">
+    <p>
+        @foreach (var tag in Model.Tags)
+        {
+            <span>@tag.TagName</span>
+        }
+    </p>
     <div class="body">
         <div class="title">@Model.Title</div>
         <div class="info">
