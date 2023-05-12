@@ -6,4 +6,6 @@ public class GridCollectionItemModel
     public string ImageUrl { get; set; } = null!;
     public string Title { get; set; } = null!;
     public decimal Price { get; set; }
+
+    public List<string> Tags { get; set; } = new List<string>();
 }

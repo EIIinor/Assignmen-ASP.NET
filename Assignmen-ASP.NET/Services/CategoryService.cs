@@ -17,6 +17,7 @@ public class CategoryService
 
 
 
+
     public async Task<List<SelectListItem>> GetCategoriesAsync()
     {
         var categories = new List<SelectListItem>();

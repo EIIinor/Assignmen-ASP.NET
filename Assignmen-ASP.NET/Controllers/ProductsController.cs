@@ -30,7 +30,7 @@ public class ProductsController : Controller
     {
         var viewModel = new ProductsIndexViewModel
         {
-            Products = await _productService.GetAllASync()
+            Products = await _productService.GetAllAsync()
 
             //All = new GridCollectionViewModel
             //{

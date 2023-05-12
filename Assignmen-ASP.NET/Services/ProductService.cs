@@ -94,14 +94,55 @@ public class ProductService
 
 
 
-    public async Task<IEnumerable<ProductModel>> GetAllASync()
+    public async Task<IEnumerable<ProductModel>> GetAllAsync()
     {
-        var items = await _productRepo.GetAllAsync();
+        var items = await _productRepo.GetAllAsync(includeProperties: "ProductTags");
+
         var list = new List<ProductModel>();
         foreach (var item in items)
-            list.Add(item);
+        {
+            var productModel = new ProductModel
+            {
+                ArticleNumber = item.ArticleNumber,
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price,
+                ImageUrl = item.ImageUrl,
+                ProductTags = item.ProductTags
+            };
+            list.Add(productModel);
+        }
         return list;
     }
+
+
+    //public async Task<IEnumerable<ProductModel>> GetAllAsync()
+    //{
+    //    var items = await _productRepo.GetAllAsync();
+
+    //    var list = new List<ProductModel>();
+    //    foreach (var item in items)
+    //        list.Add(item);
+    //    return list;
+    //}
+
+
+    //public async Task<IEnumerable<ProductModel>> GetAllAsync(Func<IQueryable<ProductEntity>, IQueryable<ProductEntity>> include = null)
+    //{
+    //    IQueryable<ProductEntity> queryable = _productRepo.GetAllAsync().AsQueryable();
+
+    //    if (include != null)
+    //    {
+    //        queryable = include(queryable);
+    //    }
+
+    //    var items = await queryable.ToListAsync();
+
+    //    return items.Select(p => (ProductModel)p).ToList();
+    //}
+
+
+
 
 
 
@@ -111,6 +152,29 @@ public class ProductService
 
         return productEntity;
     }
+
+
+    public async Task<IEnumerable<ProductModel>> GetProductsByTagAsync(string tagName, int numberOfProducts)
+    {
+        var tag = await _context.Tags.SingleOrDefaultAsync(t => t.TagName == tagName);
+        if (tag == null)
+        {
+            return Enumerable.Empty<ProductModel>();
+        }
+
+        var productIds = (await _productTagRepo.GetAllAsync(pt => pt.TagId == tag.Id))
+            .Select(pt => pt.ArticleNumber)
+            .Take(numberOfProducts)
+            .ToList();
+
+        var products = await _productRepo.GetAllAsync(
+            p => productIds.Contains(p.ArticleNumber),
+            includeProperties: "ProductTags.Tag");
+
+
+        return products.Select(p => (ProductModel)p).ToList();
+    }
+
 
 
 

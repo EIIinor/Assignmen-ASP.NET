@@ -1,7 +1,10 @@
-﻿using Assignmen_ASP.NET.Models;
+﻿using Assignmen_ASP.NET.Migrations.Data;
+using Assignmen_ASP.NET.Models;
 using Assignmen_ASP.NET.Services;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using System;
 
 namespace Assignmen_ASP.NET.Controllers;
 
@@ -19,8 +22,11 @@ public class HomeController : Controller
 
 
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+
+        var popularProducts = await _productService.GetProductsByTagAsync("popular", 8);
+
 
         var viewModel = new HomeIndexViewModel()
         {
@@ -90,17 +96,14 @@ public class HomeController : Controller
             {
                 Title = "Best Collection",
                 Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
-                GridItems = new List<GridCollectionItemModel>
+                GridItems = popularProducts.Select(p => new GridCollectionItemModel
                 {
-                    new GridCollectionItemModel { Id = "1", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "2", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "3", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "4", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "5", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "6", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "7", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { Id = "8", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                }
+                    Id = p.ArticleNumber,
+                    Title = p.Name,
+                    Price = p.Price ?? 0,
+                    ImageUrl = "/images/products/" + p.ImageUrl,
+                    Tags = p.ProductTags.Select(t => t.Tag.TagName).ToList()
+                }).ToList()
             },
 
 
@@ -109,3 +112,32 @@ public class HomeController : Controller
         return View(viewModel);
     }
 }
+
+
+//var bestCollectionProducts = products.Where(p => p.CategoryName == "BestCollection").ToList();
+
+//Sedan för att rendera ut rätt kort:
+
+//                BestCollection = new GridCollectionViewModel
+//                {
+//                    Title = "Best Collection",
+//                    Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptop", "Mobile", "Beauty" },
+//                    CardItems = bestCollectionProducts.Select((product, index) => new CardViewModel
+//                    {
+//                        Id = product.Id,
+//                        CardTitle = product.CardTitle,
+//                        Price = new PriceViewModel
+//                        {
+//                            OrdinaryPrice = product.Price?.OrdinaryPrice,
+//                            OriginalPrice = product.Price?.OriginalPrice,
+//                            DiscountPrice = product.Price?.DiscountPrice,
+//                        },
+//                        IsIcon = index == 1,
+//                        IsTitleCenter = false,
+//                        ImageData = product.ImageData,
+//                        ImageMimeType = product.ImageMimeType,
+//                        ImageBase64 = Convert.ToBase64String(product.ImageData),
+//                        Type = CardType.Type1,
+
+//                    }).ToList()
+//                },

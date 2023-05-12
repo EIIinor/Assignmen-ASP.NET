@@ -1,4 +1,6 @@
-﻿namespace Assignmen_ASP.NET.Models;
+﻿using Assignmen_ASP.NET.Models.Entities;
+
+namespace Assignmen_ASP.NET.Models;
 
 public class ProductModel
 {
@@ -7,4 +9,6 @@ public class ProductModel
     public string? Description { get; set; }
     public decimal? Price { get; set; }
     public string? ImageUrl { get; set; }
+
+    public ICollection<ProductTagEntity> ProductTags { get; set; } = new HashSet<ProductTagEntity>();
 }
