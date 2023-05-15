@@ -2,6 +2,7 @@
 using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.Models.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Assignmen_ASP.NET.Services;
 
@@ -27,6 +28,13 @@ public class AddressService
         entity ??= await _addressRepo.AddAsync(addressEntity);
         return entity!;
     }
+
+
+    public async Task<AddressEntity> GetAsync(Expression<Func<AddressEntity, bool>> expression)
+    {
+        return await _addressRepo.GetAsync(expression);
+    }
+
 
 
     public async Task AddAddressAsync(AppUser user, AddressEntity addressEntity)

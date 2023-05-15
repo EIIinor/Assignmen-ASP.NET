@@ -57,25 +57,20 @@ public class AdminController : Controller
 
 
 
-    //public async Task<IActionResult> EditUser()
-    //{
-    //    //var users = await _authService.GetAllUsersAsync();
-    //    //var viewModel = new List<UserViewModel>();
+    public async Task<IActionResult> EditUser(string id)
+    {
+        var (user, address) = await _authService.GetUserWithIdAsync(id);
 
-    //    //foreach (var user in users)
-    //    //{
-    //    //    viewModel.Add(new UserViewModel
-    //    //    {
-    //    //        FirstName = user.user.UserName,
-    //    //        LastName = user.user.UserName,
-    //    //        Email = user.user.Email,
-    //    //        Roles = user.roles,
-    //    //        Addresses = user.addresses
-    //    //    });
-    //    //}
+        var viewModel = new UserRegisterViewModel
+        {
+            User = user,
+            Address = address
+        };
 
-    //    //return View(viewModel);
-    //}
+        return View(viewModel);
+    }
+
+
 
 
 

@@ -1,4 +1,6 @@
-﻿using Assignmen_ASP.NET.Models.Entities;
+﻿using Assignmen_ASP.NET.Helpers.Repositories;
+using Assignmen_ASP.NET.Models;
+using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.Models.Identity;
 using Assignmen_ASP.NET.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -13,16 +15,17 @@ public class AuthService
     private readonly AddressService _addressService;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly UserAddressRepository _userAddressRepository;
 
 
 
-    public AuthService(UserManager<AppUser> userManager, AddressService addressService, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
+    public AuthService(UserManager<AppUser> userManager, AddressService addressService, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager, UserAddressRepository userAddressRepository)
     {
         _userManager = userManager;
         _addressService = addressService;
         _signInManager = signInManager;
         _roleManager = roleManager;
-
+        _userAddressRepository = userAddressRepository;
     }
 
 
@@ -69,44 +72,6 @@ public class AuthService
 
 
 
-
-    //public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
-    //{
-    //    try
-    //    {
-    //        AppUser appUser = model;
-    //        var roleName = "User";
-
-
-    //        if (!await _roleManager.Roles.AnyAsync())
-    //        {
-    //            await _roleManager.CreateAsync(new IdentityRole("Admin"));
-    //            await _roleManager.CreateAsync(new IdentityRole("User"));
-    //        }
-
-    //        roleName = "User";
-    //        if (!await _userManager.Users.AnyAsync())
-    //            roleName = "Admin";
-
-    //        var result = await _userManager.CreateAsync(appUser, model.Password);
-    //        if (result.Succeeded)
-    //        {
-    //            await _userManager.AddToRoleAsync(appUser, roleName);
-
-    //            var addressEntity = await _addressService.GetOrCreateAsync(model);
-    //            if (addressEntity != null)
-    //            {
-    //                await _addressService.AddAddressAsync(appUser, addressEntity);
-    //                return true;
-    //            }
-    //        }
-    //        return true;
-    //    }
-    //    catch { return false; }
-    //}
-
-
-
     public async Task<bool> LoginUserAsync(UserLoginViewModel model)
     {
         var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == model.Email);
@@ -119,6 +84,7 @@ public class AuthService
     }
 
 
+
     public async Task<bool> LogOutUserAsync(ClaimsPrincipal user)
     {
         await _signInManager.SignOutAsync();
@@ -128,6 +94,23 @@ public class AuthService
 
 
 
+
+    public async Task<(AppUser user, UserAddressEntity address)> GetUserWithIdAsync(string userId)
+    {
+        var user = await _userManager.Users.Include(u => u.Addresses).FirstOrDefaultAsync(u => u.Id == userId);
+
+        if (user != null)
+        {
+            var address = await _addressService.GetAsync(a => a.Users.Any(ua => ua.UserId == userId));
+
+            if (address != null)
+            {
+                return (user, new UserAddressEntity { UserId = userId, AddressId = address.Id });
+            }
+        }
+
+        return (null, null);
+    }
 
 
 
@@ -160,3 +143,40 @@ public class AuthService
 
 
 }
+
+
+
+//public async Task<bool> RegisterUserAsync(UserRegisterViewModel model)
+//{
+//    try
+//    {
+//        AppUser appUser = model;
+//        var roleName = "User";
+
+
+//        if (!await _roleManager.Roles.AnyAsync())
+//        {
+//            await _roleManager.CreateAsync(new IdentityRole("Admin"));
+//            await _roleManager.CreateAsync(new IdentityRole("User"));
+//        }
+
+//        roleName = "User";
+//        if (!await _userManager.Users.AnyAsync())
+//            roleName = "Admin";
+
+//        var result = await _userManager.CreateAsync(appUser, model.Password);
+//        if (result.Succeeded)
+//        {
+//            await _userManager.AddToRoleAsync(appUser, roleName);
+
+//            var addressEntity = await _addressService.GetOrCreateAsync(model);
+//            if (addressEntity != null)
+//            {
+//                await _addressService.AddAddressAsync(appUser, addressEntity);
+//                return true;
+//            }
+//        }
+//        return true;
+//    }
+//    catch { return false; }
+//}

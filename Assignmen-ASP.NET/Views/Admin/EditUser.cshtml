@@ -1,0 +1,103 @@
+﻿@inject AuthService authService
+@model UserRegisterViewModel
+
+@{
+    ViewData["Title"] = "Edit user";
+    var user = await authService.GetUserWithIdAsync(Model.User.Id);
+}
+
+
+<div class="register-form" style="padding-top:200px">
+    <div class="container">
+        <div class="title">@ViewData["Title"]</div>
+
+        <form method="post" enctype="multipart/form-data" novalidate>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+            <div class="firstname form-group">
+                <label asp-for="FirstName" class="form-label"></label>
+                <input asp-for="FirstName" class="form-control" value="@Model.User.FirstName" required />
+                <small><span asp-validation-for="FirstName" class="text-danger"></span></small>
+            </div>
+
+            <div class="lastname form-group">
+                <label asp-for="LastName" class="form-label"></label>
+                <input asp-for="LastName" class="form-control required" value="@Model.User.LastName" required />
+                <small><span asp-validation-for="LastName" class="text-danger"></span></small>
+            </div>
+
+            <div class="streetname form-group">
+                <label asp-for="StreetName" class="form-label"></label>
+                <input asp-for="StreetName" class="form-control required"  required />
+                <small><span asp-validation-for="StreetName" class="text-danger"></span></small>
+            </div>
+
+            <div class="postalcode form-group">
+                <label asp-for="PostalCode" class="form-label"></label>
+                <input asp-for="PostalCode" class="form-control required"  required />
+                <small><span asp-validation-for="PostalCode" class="text-danger"></span></small>
+            </div>
+
+            <div class="city form-group">
+                <label asp-for="City" class="form-label"></label>
+                <input asp-for="City" class="form-control required"  required />
+                <small><span asp-validation-for="City" class="text-danger"></span></small>
+            </div>
+
+            <div class="mobile form-group">
+                <label asp-for="PhoneNumber" class="form-label"></label>
+                <input asp-for="PhoneNumber" class="form-control required" value="@Model.User.PhoneNumber" required />
+                <small><span asp-validation-for="PhoneNumber" class="text-danger"></span></small>
+            </div>
+
+            <div class="company form-group">
+                <label asp-for="CompanyName" class="form-label"></label>
+                <input asp-for="CompanyName" class="form-control required" value="@Model.User.CompanyName" required />
+                <small><span asp-validation-for="CompanyName" class="text-danger"></span></small>
+            </div>
+
+            <div class="email form-group">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control required" value="@Model.User.Email" required />
+                <small><span asp-validation-for="Email" class="text-danger"></span></small>
+            </div>
+
+            <div class="password form-group">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control required" required autocomplete="new-password" />
+                <small><span asp-validation-for="Password" class="text-danger"></span></small>
+            </div>
+
+            <div class="confirmpassword form-group">
+                <label asp-for="ConfirmPassword" class="form-label"></label>
+                <input asp-for="ConfirmPassword" class="form-control required" required autocomplete="new-password" />
+                <small><span asp-validation-for="ConfirmPassword" class="text-danger"></span></small>
+            </div>
+
+            <div class="profileimage form-group">
+                <label asp-for="ImageFile" class="form-label"></label>
+                <input asp-for="ImageFile" class="form-control required"  required />
+                <small><span asp-validation-for="ImageFile" class="text-danger"></span></small>
+            </div>
+
+
+            <div class="role form-group">
+                <label asp-for="SelectedRole" class="form-label"></label>
+                <select asp-for="SelectedRole" class="form-control" >
+                    <option value="">Select role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                </select>
+                <small><span asp-validation-for="SelectedRole" class="text-danger"></span></small>
+            </div>
+
+
+
+            <button type="submit" class="btn-theme">UPDATE</button>
+
+        </form>
+
+    </div>
+</div>

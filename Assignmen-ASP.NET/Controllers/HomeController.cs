@@ -26,6 +26,9 @@ public class HomeController : Controller
     {
 
         var popularProducts = await _productService.GetProductsByTagAsync("popular", 8);
+        var newProducts = await _productService.GetProductsByTagAsync("new", 8);
+        var featuredProducts = await _productService.GetProductsByTagAsync("featured", 8);
+
 
 
         var viewModel = new HomeIndexViewModel()
@@ -92,9 +95,9 @@ public class HomeController : Controller
             },
 
 
-            BestCollection = new GridCollectionViewModel
+            PopularCollection = new GridCollectionViewModel
             {
-                Title = "Best Collection",
+                Title = "Popular Collection",
                 Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
                 GridItems = popularProducts.Select(p => new GridCollectionItemModel
                 {
@@ -106,38 +109,36 @@ public class HomeController : Controller
                 }).ToList()
             },
 
+            NewCollection = new GridCollectionViewModel
+            {
+                Title = "New Collection",
+                Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
+                GridItems = newProducts.Select(p => new GridCollectionItemModel
+                {
+                    ArticleNumber = p.ArticleNumber,
+                    Title = p.Name,
+                    Price = p.Price ?? 0,
+                    ImageUrl = "/images/products/" + p.ImageUrl,
+                    Tags = p.ProductTags.Select(pt => pt.Tag).ToList()
+                }).ToList()
+            },
 
+            FeaturedCollection = new GridCollectionViewModel
+            {
+                Title = "Featured Collection",
+                Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
+                GridItems = featuredProducts.Select(p => new GridCollectionItemModel
+                {
+                    ArticleNumber = p.ArticleNumber,
+                    Title = p.Name,
+                    Price = p.Price ?? 0,
+                    ImageUrl = "/images/products/" + p.ImageUrl,
+                    Tags = p.ProductTags.Select(pt => pt.Tag).ToList()
+                }).ToList()
+            },
 
         };
         return View(viewModel);
     }
 }
 
-
-//var bestCollectionProducts = products.Where(p => p.CategoryName == "BestCollection").ToList();
-
-//Sedan för att rendera ut rätt kort:
-
-//                BestCollection = new GridCollectionViewModel
-//                {
-//                    Title = "Best Collection",
-//                    Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptop", "Mobile", "Beauty" },
-//                    CardItems = bestCollectionProducts.Select((product, index) => new CardViewModel
-//                    {
-//                        Id = product.Id,
-//                        CardTitle = product.CardTitle,
-//                        Price = new PriceViewModel
-//                        {
-//                            OrdinaryPrice = product.Price?.OrdinaryPrice,
-//                            OriginalPrice = product.Price?.OriginalPrice,
-//                            DiscountPrice = product.Price?.DiscountPrice,
-//                        },
-//                        IsIcon = index == 1,
-//                        IsTitleCenter = false,
-//                        ImageData = product.ImageData,
-//                        ImageMimeType = product.ImageMimeType,
-//                        ImageBase64 = Convert.ToBase64String(product.ImageData),
-//                        Type = CardType.Type1,
-
-//                    }).ToList()
-//                },
