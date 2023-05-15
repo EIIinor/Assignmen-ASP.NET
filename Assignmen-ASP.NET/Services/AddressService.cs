@@ -32,8 +32,15 @@ public class AddressService
 
     public async Task<AddressEntity> GetAsync(Expression<Func<AddressEntity, bool>> expression)
     {
-        return await _addressRepo.GetAsync(expression);
+        var entities = await _addressRepo.GetAllAsync(expression);
+        var entity = entities.FirstOrDefault();
+        return entity ?? new AddressEntity();
     }
+
+
+
+
+
 
 
 

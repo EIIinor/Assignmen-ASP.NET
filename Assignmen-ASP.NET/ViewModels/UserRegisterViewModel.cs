@@ -8,7 +8,7 @@ namespace Assignmen_ASP.NET.ViewModels
     public class UserRegisterViewModel
     {
         public AppUser User { get; set; }
-        public UserAddressEntity Address { get; set; }
+        public AddressEntity Address { get; set; }
 
 
         [Required(ErrorMessage = "Firstname is required")]

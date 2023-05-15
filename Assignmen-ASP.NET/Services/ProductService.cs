@@ -96,7 +96,7 @@ public class ProductService
 
     public async Task<IEnumerable<ProductModel>> GetAllAsync()
     {
-        var items = await _productRepo.GetAllAsync(includeProperties: "ProductTags");
+        var items = await _productRepo.GetAllAsync(/*includeProperties: "ProductTags"*/);
 
         var list = new List<ProductModel>();
         foreach (var item in items)
@@ -168,8 +168,8 @@ public class ProductService
             .ToList();
 
         var products = await _productRepo.GetAllAsync(
-            p => productIds.Contains(p.ArticleNumber),
-            includeProperties: "ProductTags.Tag");
+            p => productIds.Contains(p.ArticleNumber));
+            //includeProperties: "ProductTags.Tag");
 
 
         return products.Select(p => (ProductModel)p).ToList();

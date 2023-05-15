@@ -103,25 +103,58 @@ public class AuthService
         {
             var address = await _addressService.GetAsync(a => a.Users.Any(ua => ua.UserId == userId));
 
-            if (address != null)
-            {
-                return (user, new UserAddressEntity { UserId = userId, AddressId = address.Id });
-            }
+            return (user, new UserAddressEntity { UserId = userId, Address = address ?? new AddressEntity() });
         }
 
         return (null, null);
+    }
+
+    public async Task<UserAddressEntity> GetUserAddressAsync(string userId)
+    {
+        var addressEntity = await _addressService.GetAsync(a => a.Users.Any(ua => ua.UserId == userId));
+
+        return new UserAddressEntity
+        {
+            UserId = userId,
+            Address = addressEntity
+        };
     }
 
 
 
 
 
+
+
+
+
+
+    //public async Task<IEnumerable<(AppUser user, IEnumerable<string> roles, IEnumerable<UserAddressEntity> addresses)>> GetAllUsersAsync()
+    //{
+    //    var users = await _userManager.Users
+    //        .Include(u => u.Addresses)
+    //        .ToListAsync();
+
+    //    var roles = await _roleManager.Roles.ToListAsync();
+
+    //    var result = new List<(AppUser user, IEnumerable<string> roles, IEnumerable<UserAddressEntity> addresses)>();
+
+    //    foreach (var user in users)
+    //    {
+
+    //        var userRoles = await _userManager.GetRolesAsync(user);
+    //        var userRoleNames = userRoles.Select(r => r.ToString());
+    //        var userAddresses = user.Addresses;
+
+    //        var userTuple = (user, userRoleNames, userAddresses);
+    //        result.Add(userTuple);
+    //    }
+
+    //    return result;
+    //}
     public async Task<IEnumerable<(AppUser user, IEnumerable<string> roles, IEnumerable<UserAddressEntity> addresses)>> GetAllUsersAsync()
     {
-        var users = await _userManager.Users
-            .Include(u => u.Addresses)
-            .ToListAsync();
-
+        var users = await _userManager.Users.ToListAsync();
         var roles = await _roleManager.Roles.ToListAsync();
 
         var result = new List<(AppUser user, IEnumerable<string> roles, IEnumerable<UserAddressEntity> addresses)>();
@@ -130,7 +163,7 @@ public class AuthService
         {
             var userRoles = await _userManager.GetRolesAsync(user);
             var userRoleNames = userRoles.Select(r => r.ToString());
-            var userAddresses = user.Addresses;
+            var userAddresses = await _userAddressRepository.GetAllAsync(ua => ua.UserId == user.Id, ua => ua.Address);
 
             var userTuple = (user, userRoleNames, userAddresses);
             result.Add(userTuple);

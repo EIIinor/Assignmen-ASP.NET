@@ -1,9 +1,12 @@
 ﻿@inject AuthService authService
-@model UserRegisterViewModel
+@model UserEditViewModel
 
 @{
     ViewData["Title"] = "Edit user";
-    var user = await authService.GetUserWithIdAsync(Model.User.Id);
+    if (Model.User != null)
+    {
+        var user = await authService.GetUserWithIdAsync(Model.User.Id);
+    }
 }
 
 
@@ -30,19 +33,19 @@
 
             <div class="streetname form-group">
                 <label asp-for="StreetName" class="form-label"></label>
-                <input asp-for="StreetName" class="form-control required"  required />
+                <input asp-for="StreetName" class="form-control required" value="@Model.Address.StreetName" required />
                 <small><span asp-validation-for="StreetName" class="text-danger"></span></small>
             </div>
 
             <div class="postalcode form-group">
                 <label asp-for="PostalCode" class="form-label"></label>
-                <input asp-for="PostalCode" class="form-control required"  required />
+                <input asp-for="PostalCode" class="form-control required" value="@Model.Address.PostalCode" required />
                 <small><span asp-validation-for="PostalCode" class="text-danger"></span></small>
             </div>
 
             <div class="city form-group">
                 <label asp-for="City" class="form-label"></label>
-                <input asp-for="City" class="form-control required"  required />
+                <input asp-for="City" class="form-control required" value="@Model.Address.City" required />
                 <small><span asp-validation-for="City" class="text-danger"></span></small>
             </div>
 
@@ -86,7 +89,7 @@
             <div class="role form-group">
                 <label asp-for="SelectedRole" class="form-label"></label>
                 <select asp-for="SelectedRole" class="form-control" >
-                    <option value="">Select role</option>
+                    <option value="">Select Role</option>
                     <option value="Admin">Admin</option>
                     <option value="User">User</option>
                 </select>
