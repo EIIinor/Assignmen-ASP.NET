@@ -6,8 +6,8 @@ namespace Assignmen_ASP.NET.ViewModels;
 
 public class UserEditViewModel { 
 
-    public AppUser User { get; set; }
-    public AddressEntity Address { get; set; }
+    //public AppUser User { get; set; }
+    //public AddressEntity Address { get; set; }
 
 
 

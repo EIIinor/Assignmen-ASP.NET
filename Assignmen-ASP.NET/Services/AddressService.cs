@@ -40,10 +40,6 @@ public class AddressService
 
 
 
-
-
-
-
     public async Task AddAddressAsync(AppUser user, AddressEntity addressEntity)
     {
         await _userAddressRepo.AddAsync(new UserAddressEntity
@@ -57,6 +53,20 @@ public class AddressService
     public async Task<IEnumerable<AddressEntity>> GetAllAddressesAsync()
     {
         return await _addressRepo.GetAllAsync();
+    }
+
+
+    public async Task<bool> UpdateUserAddressAsync(UserAddressEntity userAddress)
+    {
+        try
+        {
+            await _userAddressRepo.UpdateAsync(userAddress);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
 

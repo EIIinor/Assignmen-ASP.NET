@@ -50,7 +50,7 @@
 
             <div class="company form-group">
                 <label asp-for="CompanyName" class="form-label"></label>
-                <input asp-for="CompanyName" class="form-control required" required />
+                <input asp-for="CompanyName" class="form-control" />
                 <small><span asp-validation-for="CompanyName" class="text-danger"></span></small>
             </div>
 
@@ -74,14 +74,15 @@
 
             <div class="profileimage form-group">
                 <label asp-for="ImageFile" class="form-label"></label>
-                <input asp-for="ImageFile" class="form-control required" required />
+                <input asp-for="ImageFile" class="form-control" />
                 <small><span asp-validation-for="ImageFile" class="text-danger"></span></small>
             </div>
 
             <div class="terms form-checkbox-group">
                 <label class="custom-checkbox">
-                    <label asp-for="TermsAndAgreement" class="form-label"></label>
-                    <input asp-for="TermsAndAgreement" class="form-control required" required />
+                    <label asp-for="TermsAndAgreement"></label>
+                    <input asp-for="TermsAndAgreement"/>
+                    <span class="checkmark"></span>
                     <small><span asp-validation-for="TermsAndAgreement" class="text-danger"></span></small>
                 </label>
             </div>

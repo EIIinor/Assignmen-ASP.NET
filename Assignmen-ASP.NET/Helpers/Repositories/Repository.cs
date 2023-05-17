@@ -48,22 +48,6 @@ public abstract class Repository<TContext, TEntity>
         return await _context.Set<TEntity>().Where(expression).ToListAsync();
     }
 
-    //public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression = null, string includeProperties = "")
-    //{
-    //    IQueryable<TEntity> query = _context.Set<TEntity>();
-
-    //    if (expression != null)
-    //    {
-    //        query = query.Where(expression);
-    //    }
-
-    //    foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-    //    {
-    //        query = query.Include(includeProperty);
-    //    }
-
-    //    return await query.ToListAsync();
-    //}
 
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression = null, params Expression<Func<TEntity, object>>[] includeProperties)
     {
@@ -104,3 +88,23 @@ public abstract class Repository<TContext, TEntity>
 
     }
 }
+
+
+
+
+//public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression = null, string includeProperties = "")
+//{
+//    IQueryable<TEntity> query = _context.Set<TEntity>();
+
+//    if (expression != null)
+//    {
+//        query = query.Where(expression);
+//    }
+
+//    foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+//    {
+//        query = query.Include(includeProperty);
+//    }
+
+//    return await query.ToListAsync();
+//}

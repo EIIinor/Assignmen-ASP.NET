@@ -1,4 +1,5 @@
-﻿using Assignmen_ASP.NET.Models.Entities;
+﻿using Assignmen_ASP.NET.Migrations;
+using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.Models.Identity;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,8 +8,8 @@ namespace Assignmen_ASP.NET.ViewModels
 {
     public class UserRegisterViewModel
     {
-        public AppUser User { get; set; }
-        public AddressEntity Address { get; set; }
+        //public AppUser User { get; set; }
+        //public AddressEntity Address { get; set; }
 
 
         [Required(ErrorMessage = "Firstname is required")]
@@ -81,13 +82,13 @@ namespace Assignmen_ASP.NET.ViewModels
         public bool TermsAndAgreement { get; set; } = false;
 
 
-        public string? SelectedRole { get; set; } // new property for selected role
+        //public string? SelectedRole { get; set; } // new property for selected role
 
 
 
         public static implicit operator AppUser(UserRegisterViewModel model)
         {
-            return new AppUser
+            var appUser = new AppUser
             {
                 UserName = model.Email,
                 FirstName = model.FirstName,
@@ -96,6 +97,13 @@ namespace Assignmen_ASP.NET.ViewModels
                 PhoneNumber = model.PhoneNumber,
                 CompanyName = model.CompanyName,
             };
+
+            if (model.ImageFile != null)
+            {
+                appUser.ImageUrl = $"{Guid.NewGuid()}_{model.ImageFile?.FileName}";
+            }
+
+            return appUser;
         }
 
         public static implicit operator AddressEntity(UserRegisterViewModel model)
@@ -110,3 +118,5 @@ namespace Assignmen_ASP.NET.ViewModels
         }
     }
 }
+
+

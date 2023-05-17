@@ -43,10 +43,11 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
 {
     x.SignIn.RequireConfirmedAccount = false;
     x.Password.RequiredLength = 8;
-    x.User.RequireUniqueEmail = false;
+    x.User.RequireUniqueEmail = true;
 
-}).AddEntityFrameworkStores<IdentityContext>()
-  .AddRoles<IdentityRole>();
+}).AddClaimsPrincipalFactory<CustomClaims>()
+  .AddRoles<IdentityRole>()
+  .AddEntityFrameworkStores<IdentityContext>();
 
 
 

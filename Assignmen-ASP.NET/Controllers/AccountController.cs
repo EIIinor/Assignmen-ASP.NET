@@ -30,11 +30,11 @@ public class AccountController : Controller
         return View();
     }
     [HttpPost]
-    public async Task<IActionResult> Register(UserRegisterViewModel userRegisterViewModel)
+    public async Task<IActionResult> Register(UserRegisterViewModel userRegisterViewModel, IFormFile ImageFile)
     {
         if (ModelState.IsValid)
         {
-            if (await _authService.RegisterUserAsync(userRegisterViewModel))
+            if (await _authService.RegisterUserAsync(userRegisterViewModel, ImageFile))
                 return RedirectToAction("Login");
 
             ModelState.AddModelError("", "A user with the same email already exists");
@@ -46,22 +46,33 @@ public class AccountController : Controller
 
 
 
+
     public IActionResult Login()
     {
         return View();
     }
+
     [HttpPost]
     public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
     {
         if (ModelState.IsValid)
         {
-            if (await _authService.LoginUserAsync(userLoginViewModel))
-                return RedirectToAction("MyAccount");
+            var result = await _authService.LoginUserAsync(userLoginViewModel);
 
-            ModelState.AddModelError("", "wrong email or password");
+            if (result)
+            {
+                if (User.IsInRole("Admin"))
+                    return RedirectToAction("Index", "Admin");
+                else
+                    return RedirectToAction("MyAccount", "Account");
+            }
+
+            ModelState.AddModelError("", "Wrong email or password");
         }
+
         return View(userLoginViewModel);
     }
+
 
 
 

@@ -3,16 +3,36 @@
 
         @if(signInManager.IsSignedIn(User))
         {
-            @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-            {
-                <a asp-action="Index" asp-controller="Admin">Admin</a>
-            }
-  
-            <a asp-action="MyAccount" asp-controller="Account">@User.Identity?.Name</a>
-            <a asp-action="LogOut" asp-controller="Account">LOGOUT</a>
+         
+
+            <div class="logo"><img src="images/logo.svg" alt="">bmerketo</div>  
+            <nav id="menu" class="menu-links">
+
+                @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                {
+                    <a asp-action="Index" asp-controller="Admin">ADMIN</a>
+                }
+
+                <a class="link" asp-action="MyAccount" asp-controller="Account">@User.Identity?.Name</a>
+                <a class="link" asp-controller="home" asp-action="Index">HOME</a>
+                <a class="link" asp-controller="products" asp-action="Index">PRODUCTS</a>
+                <a class="link" asp-controller="contacts" asp-action="Index">CONTACT</a>                             
+            </nav>
+            <nav class="menu-icons">
+                <a class="link" asp-controller="products" asp-action="Search"><i class="fa-regular fa-search"></i></a>
+                <a class="link" asp-action="LogOut" asp-controller="Account">Logout</a>
+                <a class="link" asp-controller="shopping" asp-action="cart"><i class="fa-solid fa-cart-shopping"></i></a>
+            </nav>
+            <div class="toggle">
+                <button class="btn-toggle btn-outline-white" data-option="toggle" data-target="#menu">
+                    <i id="icon" class="fa-regular fa-bars"></i>
+                </button>
+            </div>
+
         }
         else
         {
+
             <div class="logo"><img src="images/logo.svg" alt="">bmerketo</div>
             <nav id="menu" class="menu-links">
                 <a class="link" asp-controller="home" asp-action="Index">HOME</a>
