@@ -14,16 +14,10 @@ $(document).ready(function () {
                 required: true,
                 minlength: 2
             },
-            //StreetName: {
-            //    required: true
-            //},
             PostalCode: {
                 digits: true,
                 minlength: 5
             },
-            //City: {
-            //    required: true
-            //},
             Email: {
                 required: true,
                 email: true
@@ -49,16 +43,10 @@ $(document).ready(function () {
                 required: "Last name is required",
                 minlength: "Last name must be at least 2 characters"
             },
-            //StreetName: {
-            //    required: "Street name is required"
-            //},
             PostalCode: {
                 digits: "Postal code must contain only digits",
                 minlength: "Postal code must be at least 5 digits"
             },
-            //City: {
-            //    required: "City is required"
-            //},
             Email: {
                 required: "Email is required",
                 email: "Email must be a valid email address"
@@ -129,28 +117,4 @@ function toggleMenu(attribute) {
 
 }
 toggleMenu('[data-option="toggle"]')
-
-
-
-
-
-
-
-
-
-
-
-
-//try {
-//    const footer = document.querySelector('footer')
-
-//    if (document.body.scrollHeight >= window.innerHeight) {
-//        footer.classList.remove('position-fixed')
-//        footer.classList.add('position.static')
-//    } else {
-//        footer.classList.remove('position-static')
-//        footer.classList.add('position-fixed')
-//    }
-//}
-//catch { }
 

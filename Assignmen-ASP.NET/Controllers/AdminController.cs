@@ -106,7 +106,7 @@ public class AdminController : Controller
         // Update the user's role
         await _authService.UpdateUserAsync(userTuple.user, model.SelectedRole, userTuple.address);
 
-        return RedirectToAction("Index"); // Redirect to the user list or a success page
+        return RedirectToAction("Users"); // Redirect to the user list or a success page
     }
 
 
