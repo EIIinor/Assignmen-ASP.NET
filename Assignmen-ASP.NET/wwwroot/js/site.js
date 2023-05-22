@@ -14,17 +14,16 @@ $(document).ready(function () {
                 required: true,
                 minlength: 2
             },
-            StreetName: {
-                required: true
-            },
+            //StreetName: {
+            //    required: true
+            //},
             PostalCode: {
-                required: true,
                 digits: true,
                 minlength: 5
             },
-            City: {
-                required: true
-            },
+            //City: {
+            //    required: true
+            //},
             Email: {
                 required: true,
                 email: true
@@ -50,17 +49,16 @@ $(document).ready(function () {
                 required: "Last name is required",
                 minlength: "Last name must be at least 2 characters"
             },
-            StreetName: {
-                required: "Street name is required"
-            },
+            //StreetName: {
+            //    required: "Street name is required"
+            //},
             PostalCode: {
-                required: "Postal code is required",
                 digits: "Postal code must contain only digits",
                 minlength: "Postal code must be at least 5 digits"
             },
-            City: {
-                required: "City is required"
-            },
+            //City: {
+            //    required: "City is required"
+            //},
             Email: {
                 required: "Email is required",
                 email: "Email must be a valid email address"

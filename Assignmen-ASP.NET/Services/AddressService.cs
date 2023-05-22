@@ -56,7 +56,7 @@ public class AddressService
     }
 
 
-    public async Task<bool> UpdateUserAddressAsync(UserAddressEntity userAddress)
+    public async Task<bool> UpdateAddressAsync(UserAddressEntity userAddress)
     {
         try
         {

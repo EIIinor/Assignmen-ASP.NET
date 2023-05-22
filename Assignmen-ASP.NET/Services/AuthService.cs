@@ -1,9 +1,7 @@
 ﻿using Assignmen_ASP.NET.Helpers.Repositories;
-using Assignmen_ASP.NET.Models;
 using Assignmen_ASP.NET.Models.Entities;
 using Assignmen_ASP.NET.Models.Identity;
 using Assignmen_ASP.NET.ViewModels;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -127,19 +125,25 @@ public class AuthService
 
 
 
-    public async Task<(AppUser user, UserAddressEntity address)> GetUserWithIdAsync(string userId)
+    public async Task<(AppUser user, UserAddressEntity address, IEnumerable<string> roles)> GetUserWithAddressAndRoleAsync(string userId)
     {
-        var user = await _userManager.Users.Include(u => u.Addresses).FirstOrDefaultAsync(u => u.Id == userId);
+        var user = await _userManager.Users
+            .Include(u => u.Addresses)
+            .FirstOrDefaultAsync(u => u.Id == userId);
 
         if (user != null)
         {
             var address = await _addressService.GetAsync(a => a.Users.Any(ua => ua.UserId == userId));
+            var roles = await _userManager.GetRolesAsync(user);
 
-            return (user, new UserAddressEntity { UserId = userId, Address = address ?? new AddressEntity() });
+            return (user, new UserAddressEntity { UserId = userId, Address = address ?? new AddressEntity() }, roles);
         }
 
-        return (null, null);
+        return (null, null, null);
     }
+
+
+
 
     public async Task<UserAddressEntity> GetUserAddressAsync(string userId)
     {
@@ -177,48 +181,81 @@ public class AuthService
 
 
 
-    public async Task UpdateUserWithAddressAndRoleAsync(AppUser user, AddressEntity address, string role)
+
+    public async Task<bool> UpdateUserAsync(AppUser user, string roleName, UserAddressEntity address)
     {
-        // Uppdatera användaruppgifter
-        var updateUserResult = await _userManager.UpdateAsync(user);
-        if (!updateUserResult.Succeeded)
-        {
-            // Hantera fel vid uppdatering av användaren
-            throw new Exception("Failed to update user.");
-        }
+        var result = await _userManager.UpdateAsync(user);
 
-        // Uppdatera adressuppgifter
-        var userAddress = await GetUserAddressAsync(user.Id);
-        if (userAddress != null)
-        {
-            userAddress.Address.StreetName = address.StreetName;
-            userAddress.Address.PostalCode = address.PostalCode;
-            userAddress.Address.City = address.City;
+        if (!result.Succeeded)
+            return false;
 
-            var updateAddressResult = await _addressService.UpdateUserAddressAsync(userAddress);
-            if (!updateAddressResult)
-            {
-                // Hantera fel vid uppdatering av adressen
-                throw new Exception("Failed to update address.");
-            }
-        }
+        if (!await _roleManager.RoleExistsAsync(roleName))
+            await _roleManager.CreateAsync(new IdentityRole(roleName));
 
-        // Uppdatera rollen
+        // Ta bort användarens befintliga roller
         var userRoles = await _userManager.GetRolesAsync(user);
-        var removeRoleResult = await _userManager.RemoveFromRolesAsync(user, userRoles);
-        if (!removeRoleResult.Succeeded)
+        await _userManager.RemoveFromRolesAsync(user, userRoles);
+
+        // Lägg till användaren i den angivna rollen
+        await _userManager.AddToRoleAsync(user, roleName);
+
+        if (address != null)
         {
-            // Hantera fel vid borttagning av befintlig roll
-            throw new Exception("Failed to remove user role.");
+            var updatedAddress = await _addressService.UpdateAddressAsync(address);
+            if (!updatedAddress)
+                return false;
         }
 
-        var addRoleResult = await _userManager.AddToRoleAsync(user, role);
-        if (!addRoleResult.Succeeded)
-        {
-            // Hantera fel vid tillägg av ny roll
-            throw new Exception("Failed to add user role.");
-        }
+        return true;
     }
+
+
+
+
+
+
+    //public async Task UpdateUserAsync(AppUser user, AddressEntity address, string role)
+    //{
+    //    // Uppdatera användaruppgifter
+    //    var updateUserResult = await _userManager.UpdateAsync(user);
+    //    if (!updateUserResult.Succeeded)
+    //    {
+    //        // Hantera fel vid uppdatering av användaren
+    //        throw new Exception("Failed to update user.");
+    //    }
+
+    //    // Uppdatera adressuppgifter
+    //    var userAddress = await GetUserAddressAsync(user.Id);
+    //    if (userAddress != null)
+    //    {
+    //        userAddress.Address.StreetName = address.StreetName;
+    //        userAddress.Address.PostalCode = address.PostalCode;
+    //        userAddress.Address.City = address.City;
+
+    //        var updateAddressResult = await _addressService.UpdateUserAddressAsync(userAddress);
+    //        if (!updateAddressResult)
+    //        {
+    //            // Hantera fel vid uppdatering av adressen
+    //            throw new Exception("Failed to update address.");
+    //        }
+    //    }
+
+    //    // Uppdatera rollen
+    //    var userRoles = await _userManager.GetRolesAsync(user);
+    //    var removeRoleResult = await _userManager.RemoveFromRolesAsync(user, userRoles);
+    //    if (!removeRoleResult.Succeeded)
+    //    {
+    //        // Hantera fel vid borttagning av befintlig roll
+    //        throw new Exception("Failed to remove user role.");
+    //    }
+
+    //    var addRoleResult = await _userManager.AddToRoleAsync(user, role);
+    //    if (!addRoleResult.Succeeded)
+    //    {
+    //        // Hantera fel vid tillägg av ny roll
+    //        throw new Exception("Failed to add user role.");
+    //    }
+    //}
 }
 
 

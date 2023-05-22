@@ -4,10 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Assignmen_ASP.NET.ViewModels;
 
-public class UserEditViewModel { 
+public class UserEditViewModel {
 
-    //public AppUser User { get; set; }
-    //public AddressEntity Address { get; set; }
+    public string Id { get; set; }
 
 
 

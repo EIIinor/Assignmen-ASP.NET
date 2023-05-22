@@ -20,7 +20,7 @@ public class CustomClaims : UserClaimsPrincipalFactory<AppUser>
         var claimsIdentity = await base.GenerateClaimsAsync(user);
         var profilePictureUrl = GetUserImageUrl(user.Id);
 
-        var appUser = await userManager.FindByIdAsync(user.Id);
+        //var appUser = await userManager.FindByIdAsync(user.Id);
 
         claimsIdentity.AddClaim(new Claim("DisplayName", $"{user.FirstName} {user.LastName}"));
         claimsIdentity.AddClaim(new Claim("ProfilePicture", profilePictureUrl));

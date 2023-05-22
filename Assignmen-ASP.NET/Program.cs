@@ -45,9 +45,10 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(x =>
     x.Password.RequiredLength = 8;
     x.User.RequireUniqueEmail = true;
 
-}).AddClaimsPrincipalFactory<CustomClaims>()
-  .AddRoles<IdentityRole>()
-  .AddEntityFrameworkStores<IdentityContext>();
+})
+    .AddEntityFrameworkStores<IdentityContext>()
+    .AddClaimsPrincipalFactory<CustomClaims>()
+    .AddRoles<IdentityRole>();
 
 
 

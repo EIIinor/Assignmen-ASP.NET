@@ -63,75 +63,52 @@ public class AdminController : Controller
 
     public async Task<IActionResult> EditUser(string id)
     {
-        var (user, userAddress) = await _authService.GetUserWithIdAsync(id);
+        var userTuple = await _authService.GetUserWithAddressAndRoleAsync(id);
+        if (userTuple.user == null)
+        {
+            return NotFound();
+        }
 
-        //var viewModel = new UserEditViewModel
-        //{
-        //    User = user,
-        //    Address = userAddress != null ? userAddress.Address : new AddressEntity()
-        //};
+        var viewModel = new UserEditViewModel
+        {
+            FirstName = userTuple.user.FirstName,
+            LastName = userTuple.user.LastName,
+            StreetName = userTuple.address.Address?.StreetName,
+            PostalCode = userTuple.address.Address?.PostalCode,
+            City = userTuple.address.Address?.City,
+            PhoneNumber = userTuple.user.PhoneNumber,
+            CompanyName = userTuple.user.CompanyName,
+            Email = userTuple.user.Email,
+            SelectedRole = userTuple.roles.FirstOrDefault()
+        };
 
-        return View();
+        return View(viewModel);
     }
-    //[HttpPost]
-    //public async Task<IActionResult> EditUser(UserEditViewModel viewModel)
-    //{
-    //    if (ModelState.IsValid)
-    //    {
-    //        // Get the user to update
-    //        var user = await _userManager.FindByIdAsync(viewModel.User.Id);
+    [HttpPost]
+    public async Task<IActionResult> EditUser(UserEditViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
 
-    //        if (user != null)
-    //        {
-    //            // Update the user properties
-    //            user.FirstName = viewModel.User.FirstName;
-    //            user.LastName = viewModel.User.LastName;
-    //            user.CompanyName = viewModel.User.CompanyName;
-    //            user.Email = viewModel.User.Email;
-    //            user.PhoneNumber = viewModel.User.PhoneNumber;
+        var userTuple = await _authService.GetUserWithAddressAndRoleAsync(model.Id);
+        if (userTuple.user == null)
+        {
+            return NotFound();
+        }
 
-    //            try
-    //            {
-    //                // Update the user's address
-    //                var userAddress = await _authService.GetUserAddressAsync(user.Id);
-    //                if (userAddress != null)
-    //                {
-    //                    userAddress.Address.StreetName = viewModel.Address.StreetName;
-    //                    userAddress.Address.PostalCode = viewModel.Address.PostalCode;
-    //                    userAddress.Address.City = viewModel.Address.City;
+        // Update the user properties
+        userTuple.user.FirstName = model.FirstName;
+        userTuple.user.LastName = model.LastName;
+        // Update other properties
 
-    //                    // Update the user's address and role
-    //                    //await _authService.UpdateUserWithAddressAndRoleAsync(user, userAddress, viewModel.SelectedRole);
-    //                }
+        // Update the user's role
+        await _authService.UpdateUserAsync(userTuple.user, model.SelectedRole, userTuple.address);
 
-    //                // Save the changes
-    //                var result = await _userManager.UpdateAsync(user);
-    //                if (result.Succeeded)
-    //                {
-    //                    // Redirect to a success page or perform other actions
-    //                    return RedirectToAction("Users");
-    //                }
-    //                else
-    //                {
-    //                    // Handle the update failure
-    //                    foreach (var error in result.Errors)
-    //                    {
-    //                        ModelState.AddModelError("", "Something went wrong");
-    //                    }
-    //                }
-    //            }
-    //            catch (Exception)
-    //            {
-    //                ModelState.AddModelError("", "Failed to update address or role.");
-    //            }
-    //        }
-    //        else
-    //        {
-    //            ModelState.AddModelError("", "User not found.");
-    //        }
-    //    }
-    //    return View(viewModel);
-    //}
+        return RedirectToAction("Index"); // Redirect to the user list or a success page
+    }
+
 
 
 
