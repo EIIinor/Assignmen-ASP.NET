@@ -24,7 +24,7 @@ $(document).ready(function () {
             },
             Password: {
                 required: true,
-                minlength: 8
+                minlength: 8,
             },
             ConfirmPassword: {
                 required: true,
@@ -32,7 +32,18 @@ $(document).ready(function () {
             },
             TermsAndAgreement: {
                 required: true
-            }
+            },
+
+
+            Name: {
+                required: true,
+                minlength: 2
+            },
+            Text: {
+                required: true,
+                minlength: 5,
+                maxlength: 200
+            },
         },
         messages: {
             FirstName: {
@@ -53,7 +64,7 @@ $(document).ready(function () {
             },
             Password: {
                 required: "Password is required",
-                minlength: "Password must be at least 8 characters"
+                minlength: "*Password must be at least 8 characters *Contain at least one uppercase and one lowercase letter *Contain at least one digit *Contains at least one of the specified special characters"
             },
             ConfirmPassword: {
                 required: "Confirm password is required",

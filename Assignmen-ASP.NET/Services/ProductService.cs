@@ -95,7 +95,7 @@ public class ProductService
 
     public async Task<IEnumerable<ProductModel>> GetAllAsync()
     {
-        var items = await _productRepo.GetAllAsync(/*includeProperties: "ProductTags"*/);
+        var items = await _productRepo.GetAllAsync();
 
         var list = new List<ProductModel>();
         foreach (var item in items)

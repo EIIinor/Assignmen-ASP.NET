@@ -118,9 +118,26 @@ html, body {
   text-decoration: none;
   display: block;
 }
+.collection-item .image-container {
+  position: relative;
+  display: inline-block;
+}
 .collection-item img {
   width: 100%;
   height: auto;
+}
+.collection-item p {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.collection-item p .tag {
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  padding: 2px 6px;
+  margin-right: 5px;
+  margin-top: 5px;
 }
 .collection-item .body {
   color: #292929;

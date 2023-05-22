@@ -95,10 +95,23 @@ public class HomeController : Controller
             },
 
 
+            BestCollection = new GridCollectionViewModel
+            {
+                Title = "Best Collection",
+                Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
+                GridItems = _productService.GetAllAsync().Result.Take(8).Select(p => new GridCollectionItemModel
+                {
+                    ArticleNumber = p.ArticleNumber,
+                    Title = p.Name,
+                    Price = p.Price ?? 0,
+                    ImageUrl = "/images/products/" + p.ImageUrl,
+                    Tags = p.ProductTags.Select(pt => pt.Tag).ToList()
+                }).ToList()
+            },
+
             PopularCollection = new GridCollectionViewModel
             {
                 Title = "Popular Collection",
-                Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
                 GridItems = popularProducts.Select(p => new GridCollectionItemModel
                 {
                     ArticleNumber = p.ArticleNumber,
@@ -112,7 +125,6 @@ public class HomeController : Controller
             NewCollection = new GridCollectionViewModel
             {
                 Title = "New Collection",
-                Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
                 GridItems = newProducts.Select(p => new GridCollectionItemModel
                 {
                     ArticleNumber = p.ArticleNumber,
@@ -126,7 +138,6 @@ public class HomeController : Controller
             FeaturedCollection = new GridCollectionViewModel
             {
                 Title = "Featured Collection",
-                Categories = new List<string> { "All", "Bag", "Dress", "Decoration", "Essentials", "Interior", "Laptops", "Mobile", "Beauty" },
                 GridItems = featuredProducts.Select(p => new GridCollectionItemModel
                 {
                     ArticleNumber = p.ArticleNumber,
