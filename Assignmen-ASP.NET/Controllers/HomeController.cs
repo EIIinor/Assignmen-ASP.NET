@@ -57,17 +57,15 @@ public class HomeController : Controller
             TopSelling = new TopSellingViewModel()
             {
                 Title = "Top selling products in this week",
-                LinkUrl = "/products",
-                GridItems = new List<GridCollectionItemModel>
+                //LinkUrl = "/products",
+                GridItems = _productService.GetAllAsync().Result.Take(7).Select(p => new GridCollectionItemModel
                 {
-                    new GridCollectionItemModel { ArticleNumber = "9", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { ArticleNumber = "10", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { ArticleNumber = "11", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { ArticleNumber = "12", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { ArticleNumber = "13", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { ArticleNumber = "14", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                    new GridCollectionItemModel { ArticleNumber = "15", Title = "Apple watch collection", Price = 30, ImageUrl = "images/placeholders/270x295.svg" },
-                }
+                    ArticleNumber = p.ArticleNumber,
+                    Title = p.Name,
+                    Price = p.Price ?? 0,
+                    ImageUrl = "/images/products/" + p.ImageUrl,
+                    Tags = p.ProductTags.Select(pt => pt.Tag).ToList()
+                }).ToList()
             },
 
 

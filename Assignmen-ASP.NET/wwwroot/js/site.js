@@ -109,8 +109,6 @@ $(document).ready(function () {
 
 
 
-
-
 //footer placement 
 
 function footerPosition(element, scrollHeight, innerHeight) {
