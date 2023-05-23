@@ -87,6 +87,26 @@ $(document).ready(function () {
 
 
 
+//product details more info
+
+$(document).ready(function () {
+    // Hide all content divs except for the Description initially
+    $(".text").not(".description").hide();
+
+    // Handle button click event
+    $(".info-button").click(function () {
+        // Get the data target attribute of the clicked button
+        var target = $(this).attr("data-target");
+
+        // Show the corresponding content div and hide others
+        $(".text").hide();
+        $("." + target).show();
+    });
+});
+
+
+
+
 
 
 

@@ -1,25 +1,26 @@
-@import './core/fonts';
-@import './core/colors';
-@import './core/mixins';
+@import './core/_fonts.scss';
+@import './core/_colors.scss';
+@import './core/_mixins.scss';
 
-@import './components/base';
-@import './components/buttons';
-@import './components/collectionitem';
-@import './components/collectioncontent';
-@import './components/forms';
+@import './components/_base.scss';
+@import './components/_buttons.scss';
+@import './components/_collectionitem.scss';
+@import './components/_collectioncontent.scss';
+@import './components/_forms.scss';
 
-@import './components/header';
-@import './components/footer';
-@import './components/breadcrumb';
-@import './components/map';
-@import './components/showcase';
-@import './components/gridcollection';
-@import './components/uptosell';
-@import './components/topselling';
-@import './components/newsletter';
-@import './components/contactform'; 
-@import './components/socialposts';
+@import './components/_header.scss';
+@import './components/_footer.scss';
+@import './components/_breadcrumb.scss';
+@import './components/_map.scss';
+@import './components/_showcase.scss';
+@import './components/_gridcollection.scss';
+@import './components/_uptosell.scss';
+@import './components/_topselling.scss';
+@import './components/_newsletter.scss';
+@import './components/_contactform.scss'; 
+@import './components/_socialposts.scss';
 @import './components/_loginform.scss';
 @import './components/_registerform.scss';
 @import './components/_productdetail.scss';
+@import './components/_productdetailmoreinfo.scss';
 

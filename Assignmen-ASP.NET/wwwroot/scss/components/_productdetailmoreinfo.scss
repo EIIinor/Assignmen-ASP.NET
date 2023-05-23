@@ -1,0 +1,38 @@
+.moreinfo {
+    margin-top: 50px;
+
+
+    .boxes {
+        display: flex;
+
+        .info-button {
+            background-color: $color-theme-1;
+            color: $color-white;
+        }
+
+        button {
+            border: 1px solid $color-dark-4;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+    }
+
+    h1 {
+        font-size: 22px;
+        color: $color-dark-1;
+        font-weight: $font-weight-semibold;
+        width: fit-content;
+        margin-top: 25px;
+        margin-bottom: 20px;
+    }
+
+    .box {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .image {
+            margin-left: 100px;
+        }
+    }
+}

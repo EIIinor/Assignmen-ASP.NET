@@ -11,4 +11,6 @@ public class ProductModel
     public string? ImageUrl { get; set; }
 
     public ICollection<ProductTagEntity> ProductTags { get; set; } = new HashSet<ProductTagEntity>();
+
+    public ICollection<ProductCategoryEntity> ProductCategories { get; set; } = new HashSet<ProductCategoryEntity>();
 }

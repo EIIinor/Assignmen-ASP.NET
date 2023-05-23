@@ -26,7 +26,7 @@ namespace Assignmen_ASP.NET.ViewModels
 
 
         [Required(ErrorMessage = "Streetname is required*")]
-        [Display(Name = "Streetname")]
+        [Display(Name = "Streetname*")]
         public string StreetName { get; set; } = null!;
 
 
@@ -40,11 +40,11 @@ namespace Assignmen_ASP.NET.ViewModels
         public string City { get; set; } = null!;
 
 
-        [Display(Name = "Mobile")]
+        [Display(Name = "Mobile (optional)")]
         public string? PhoneNumber { get; set; }
 
 
-        [Display(Name = "Company")]
+        [Display(Name = "Company (optional)")]
         public string? CompanyName { get; set; }
 
 
@@ -72,7 +72,7 @@ namespace Assignmen_ASP.NET.ViewModels
 
 
 
-        [Display(Name = "Upload profile image")]
+        [Display(Name = "Upload profile image (optional)")]
         [DataType(DataType.Upload)]
         public IFormFile? ImageFile { get; set; }
 
