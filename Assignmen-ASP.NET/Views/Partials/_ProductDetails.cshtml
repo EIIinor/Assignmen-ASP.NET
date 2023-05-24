@@ -42,7 +42,7 @@
                 <div class="btn-white">
                     <button>Add to wishlist</button>
                 </div>
-                <div class="category">Category: </div>
+                <div class="category">Category: @foreach(var category in product.ProductCategories) { @category.Category.CategoryName } </div>
             </div>
         </div>
     </section>
