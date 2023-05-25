@@ -10,29 +10,29 @@
 
             <div class="name form-group">
                 <label asp-for="Name" class="form-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <input asp-for="Name" class="form-control" onkeyup="validateText(event)"/>
                 <small><span asp-validation-for="Name" class="error"></span></small>
             </div>
 
             <div class="email form-group">
                 <label asp-for="Email" class="form-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" onkeyup="validateEmail(event)  />
                 <small><span asp-validation-for="Email" class="error"></span></small>
             </div>
 
             <div class="phone form-group">
                 <label asp-for="PhoneNumber" class="form-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <input asp-for="PhoneNumber" class="form-control" onkeyup="validatePhoneNumber(event)  />
             </div>
 
             <div class="company form-group">
                 <label asp-for="Company" class="form-label"></label>
-                <input asp-for="Company" class="form-control" />
+                <input asp-for="Company" class="form-control" onkeyup="validateText(event)  />
             </div>
 
             <div class="text form-group">
                 <label asp-for="Text" class="form-label"></label>
-                <input asp-for="Text" class="form-control" />
+                <input asp-for="Text" class="form-control" onkeyup="validateText(event)  />
                 <small><span asp-validation-for="Text" class="error"></span></small>
             </div>
 
